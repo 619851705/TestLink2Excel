@@ -57,7 +57,12 @@ namespace TestLink2Excel
         {
             XmlElement node = this.suite.CreateElement("", "testcase", "");
             node.SetAttribute("name", tc.Name);
-
+            XmlElement summary = this.suite.CreateElement("", "summary", "");
+            summary.AppendChild(this.suite.CreateCDataSection(tc.Summary));
+            node.AppendChild(summary);
+            XmlElement preconditions = this.suite.CreateElement("", "preconditions", "");
+            preconditions.AppendChild(this.suite.CreateCDataSection(tc.Preconditions));
+            node.AppendChild(preconditions);
             if (tc.Steps.Count > 0)
             {
                 XmlElement steps = this.suite.CreateElement("", "steps", "");
@@ -67,12 +72,22 @@ namespace TestLink2Excel
                 }
                 node.AppendChild(steps);
             }
-
+            return node;
         }
 
         private XmlNode writeStep(Step step)
         {
-            throw new NotImplementedException();
+            XmlElement node = this.suite.CreateElement("", "step", "");
+            XmlElement stepNumber = this.suite.CreateElement("", "step_number", "");
+            stepNumber.AppendChild(this.suite.CreateCDataSection(step.StepNumber.ToString()));
+            node.AppendChild(stepNumber);
+            XmlElement actions = this.suite.CreateElement("", "actions", "");
+            actions.AppendChild(this.suite.CreateCDataSection(step.Action));
+            node.AppendChild(actions);
+            XmlElement expectedresults = this.suite.CreateElement("", "expectedresults", "");
+            expectedresults.AppendChild(this.suite.CreateCDataSection(step.ExpectedResult));
+            node.AppendChild(expectedresults);
+            return node;
         }
 
         public List<TestSuite> makeTestSuite()
