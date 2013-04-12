@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Windows.Forms;
 
-namespace TestLink2Excel
+namespace TestLink2Excel.Utils
 {
     class XMLSuite
     {

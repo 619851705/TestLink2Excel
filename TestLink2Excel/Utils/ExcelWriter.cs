@@ -5,7 +5,7 @@ using System.Text;
 using ClosedXML.Excel;
 using System.Xml;
 
-namespace TestLink2Excel
+namespace TestLink2Excel.Utils
 {
     class ExcelWriter
     {

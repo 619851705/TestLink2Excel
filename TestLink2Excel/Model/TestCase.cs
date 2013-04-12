@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TestLink2Excel
+namespace TestLink2Excel.Model
 {
     class TestCase
     {

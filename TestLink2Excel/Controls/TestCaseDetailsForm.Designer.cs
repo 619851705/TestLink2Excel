@@ -1,4 +1,4 @@
-﻿namespace TestLink2Excel
+﻿namespace TestLink2Excel.Controls
 {
     partial class TestCaseDetailsForm
     {
