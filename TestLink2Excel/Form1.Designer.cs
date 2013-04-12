@@ -86,6 +86,7 @@
             this.folderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.caseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.buttonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
             this.mainSplit.Panel1.SuspendLayout();
@@ -174,9 +175,12 @@
             this.suiteTreeView.ForeColor = System.Drawing.SystemColors.WindowText;
             this.suiteTreeView.FullRowSelect = true;
             this.suiteTreeView.HideSelection = false;
+            this.suiteTreeView.ImageIndex = 0;
+            this.suiteTreeView.ImageList = this.imageList1;
             this.suiteTreeView.LabelEdit = true;
             this.suiteTreeView.Location = new System.Drawing.Point(0, 25);
             this.suiteTreeView.Name = "suiteTreeView";
+            this.suiteTreeView.SelectedImageIndex = 0;
             this.suiteTreeView.Size = new System.Drawing.Size(245, 426);
             this.suiteTreeView.TabIndex = 1;
             this.suiteTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.suiteTreeView_AfterSelect);
@@ -382,6 +386,7 @@
             // 
             // testSuiteCancelButton
             // 
+            this.testSuiteCancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.testSuiteCancelButton.Location = new System.Drawing.Point(571, 6);
             this.testSuiteCancelButton.Name = "testSuiteCancelButton";
             this.testSuiteCancelButton.Size = new System.Drawing.Size(75, 23);
@@ -392,6 +397,7 @@
             // 
             // testSuiteSaveButton
             // 
+            this.testSuiteSaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.testSuiteSaveButton.Location = new System.Drawing.Point(471, 5);
             this.testSuiteSaveButton.Name = "testSuiteSaveButton";
             this.testSuiteSaveButton.Size = new System.Drawing.Size(75, 23);
@@ -414,6 +420,8 @@
             // 
             // testSuiteSummaryText
             // 
+            this.testSuiteSummaryText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.testSuiteSummaryText.Location = new System.Drawing.Point(105, 55);
             this.testSuiteSummaryText.Multiline = true;
             this.testSuiteSummaryText.Name = "testSuiteSummaryText";
@@ -432,6 +440,8 @@
             // 
             // testSuiteNameText
             // 
+            this.testSuiteNameText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.testSuiteNameText.Location = new System.Drawing.Point(105, 19);
             this.testSuiteNameText.Name = "testSuiteNameText";
             this.testSuiteNameText.Size = new System.Drawing.Size(556, 20);
@@ -498,14 +508,14 @@
             // excelSheetToolStripMenuItem
             // 
             this.excelSheetToolStripMenuItem.Name = "excelSheetToolStripMenuItem";
-            this.excelSheetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.excelSheetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.excelSheetToolStripMenuItem.Text = "Excel sheet...";
             this.excelSheetToolStripMenuItem.Click += new System.EventHandler(this.excelSheetToolStripMenuItem_Click);
             // 
             // testLinkXlsToolStripMenuItem
             // 
             this.testLinkXlsToolStripMenuItem.Name = "testLinkXlsToolStripMenuItem";
-            this.testLinkXlsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.testLinkXlsToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.testLinkXlsToolStripMenuItem.Text = "Test link xls...";
             this.testLinkXlsToolStripMenuItem.Click += new System.EventHandler(this.testLinkXlsToolStripMenuItem_Click);
             // 
@@ -631,6 +641,17 @@
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "raritysockiesicon.ico");
+            this.imageList1.Images.SetKeyName(1, "rarityticon2.ico");
+            this.imageList1.Images.SetKeyName(2, "rariweticon.ico");
+            this.imageList1.Images.SetKeyName(3, "Steam Icon.ico");
+            this.imageList1.Images.SetKeyName(4, "Steam_Pony.ico");
+            this.imageList1.Images.SetKeyName(5, "SteamPony.ico");
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -731,6 +752,7 @@
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem folderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem caseToolStripMenuItem;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
 

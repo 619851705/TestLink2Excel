@@ -28,12 +28,12 @@ namespace TestLink2Excel
             this.suite.AppendChild(n);
             var xmlelem = writeSuite(suite);
             this.suite.AppendChild(xmlelem);
-            this.suite.Save("C:/users/kszymanski/Desktop/suite.xml");
+            
         }
 
         public void saveAs(string path)
         {
-
+            this.suite.Save(path);
         }
 
         private XmlNode writeSuite(TestSuite suite)

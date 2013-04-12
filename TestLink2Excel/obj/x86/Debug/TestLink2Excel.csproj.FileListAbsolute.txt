@@ -8,3 +8,4 @@ C:\Users\kszymanski\documents\visual studio 2010\Projects\TestLink2Excel\TestLin
 C:\Users\kszymanski\documents\visual studio 2010\Projects\TestLink2Excel\TestLink2Excel\obj\x86\Debug\TestLink2Excel.exe
 C:\Users\kszymanski\documents\visual studio 2010\Projects\TestLink2Excel\TestLink2Excel\obj\x86\Debug\TestLink2Excel.pdb
 C:\Users\kszymanski\documents\visual studio 2010\Projects\TestLink2Excel\TestLink2Excel\bin\Debug\DocumentFormat.OpenXml.dll
+C:\Users\kszymanski\documents\visual studio 2010\Projects\TestLink2Excel\TestLink2Excel\obj\x86\Debug\TestLink2Excel.csprojResolveAssemblyReference.cache

@@ -59,6 +59,8 @@ namespace TestLink2Excel
             TreeNode node = new TreeNode();
             node.Text = suite.Name;
             node.Tag = suite;
+            node.SelectedImageIndex = 2;
+            node.ImageIndex = 0;
             foreach (TestSuite s in suite.UnderSuits)
             {
                 node.Nodes.Add(makeSuiteTree(s));
@@ -69,6 +71,8 @@ namespace TestLink2Excel
                 TreeNode tcNode = new TreeNode();
                 tcNode.Text = testCase.Name;
                 tcNode.Tag = testCase;
+                tcNode.ImageIndex = 4;
+                tcNode.SelectedImageIndex = 3;
                 node.Nodes.Add(tcNode);
             }
             return node;
@@ -314,7 +318,18 @@ namespace TestLink2Excel
 
         private void testLinkXlsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            XMLSuite x = new XMLSuite(suiteTreeView.SelectedNode.Tag as TestSuite);
+            TestSuite suite = suiteTreeView.SelectedNode.Tag as TestSuite;
+            if (suite != null)
+            {
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.Filter = "XML File (*.xml)|*.xml|All files (*.*)|*.*";
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK) // Test result.
+                {
+                    XMLSuite x = new XMLSuite(suite);
+                    x.saveAs(dialog.FileName);
+                }
+            }
         }
     }
 }
