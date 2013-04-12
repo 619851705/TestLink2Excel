@@ -15,7 +15,7 @@ namespace TestLink2Excel
         {
             InitializeComponent();
         }
-
+        #region eventHandlers
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -35,6 +35,23 @@ namespace TestLink2Excel
             }
 
         }
+
+        private void suiteTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TestSuite suite = e.Node.Tag as TestSuite;
+            TestCase testCase = e.Node.Tag as TestCase;
+            if (suite != null)
+            {
+                showSuiteForm(suite);
+                showToolStripButtons(e.Node);
+            }
+            else if (testCase != null)
+            {
+                showTestCaseForm(testCase);
+                hideToolStripButtons();
+            }
+        }
+
         private void ObjectHelper_OnChanged(object instance)
         {
             TestSuite a = instance as TestSuite;
@@ -45,6 +62,10 @@ namespace TestLink2Excel
             }
             suiteTreeView.EndUpdate();
         }
+
+        #endregion
+
+        #region functions
         private void updateSuiteNames(TestSuite suite, TreeNode rootNode)
         {
             if (rootNode.Tag == suite) rootNode.Text = suite.Name;
@@ -77,22 +98,8 @@ namespace TestLink2Excel
             }
             return node;
         }
+        #endregion
 
-        private void suiteTreeView_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            TestSuite suite = e.Node.Tag as TestSuite;
-            TestCase testCase = e.Node.Tag as TestCase;
-            if (suite != null)
-            {
-                showSuiteForm(suite);
-                showToolStripButtons(e.Node);
-            }
-            else if (testCase != null)
-            {
-                showTestCaseForm(testCase);
-                hideToolStripButtons();
-            }
-        }
 
         private void hideToolStripButtons()
         {
@@ -169,8 +176,7 @@ namespace TestLink2Excel
 
             TextBox text = new TextBox();
             text.Location = new System.Drawing.Point(x + 30, y);
-            text.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                            | System.Windows.Forms.AnchorStyles.Right)));
+            text.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             text.Multiline = true;
             text.Size = new System.Drawing.Size(boxWeight, 69);
             text.Text = step.Action;

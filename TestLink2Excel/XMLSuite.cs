@@ -57,6 +57,9 @@ namespace TestLink2Excel
         {
             XmlElement node = this.suite.CreateElement("", "testcase", "");
             node.SetAttribute("name", tc.Name);
+            XmlElement externalid = this.suite.CreateElement("", "externalid", "");
+            externalid.AppendChild(this.suite.CreateCDataSection(tc.Id.ToString()));
+            node.AppendChild(externalid);
             XmlElement summary = this.suite.CreateElement("", "summary", "");
             summary.AppendChild(this.suite.CreateCDataSection(tc.Summary));
             node.AppendChild(summary);

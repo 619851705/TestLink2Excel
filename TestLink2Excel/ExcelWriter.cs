@@ -13,6 +13,10 @@ namespace TestLink2Excel
         private XLWorkbook workbook;
         private int row = 1;
         private int deep;
+        
+        
+        private const int expectedResultCellDiv = 100;
+
         public ExcelWriter(string newFilePath)
         {
             if (!string.IsNullOrEmpty(newFilePath)) filePath = newFilePath;
