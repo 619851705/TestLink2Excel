@@ -15,10 +15,11 @@ namespace TestLink2Excel
         {
             InitializeComponent();
         }
-        #region eventHandlers
+        
+        //#region eventHandlers
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
+            /*OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "XML suite file (*.xml)|*.xml|All files (*.*)|*.*";
             DialogResult result = dialog.ShowDialog();
             if (result == DialogResult.OK) // Test result.
@@ -33,10 +34,10 @@ namespace TestLink2Excel
                 ObjectHelper.OnChanged += new ObjectHelperOnHangeHandler(ObjectHelper_OnChanged);
                 suiteTreeView.EndUpdate();
             }
-
+            */
         }
 
-        private void suiteTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+       /* private void suiteTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             TestSuite suite = e.Node.Tag as TestSuite;
             TestCase testCase = e.Node.Tag as TestCase;
@@ -101,7 +102,7 @@ namespace TestLink2Excel
         #endregion
 
 
-        private void hideToolStripButtons()
+   /*     private void hideToolStripButtons()
         {
             newNodeToolStripButton.Visible = false;
             newTestCaseToolStripButton.Visible = false;
@@ -205,75 +206,75 @@ namespace TestLink2Excel
             expected.Tag = step;
             expectionsPanel.Controls.Add(expected);
         }
-
+        */
         private void testSuiteSaveButton_Click(object sender, EventArgs e)
         {
-            TestSuite suite = testSuiteFormPanel.Tag as TestSuite;
-            suite.Description = testSuiteSummaryText.Text;
-            suite.Name = testSuiteNameText.Text;
-            loadTestSuiteForm(suite);
+            //TestSuite suite = testSuiteFormPanel.Tag as TestSuite;
+            //suite.Description = testSuiteSummaryText.Text;
+            //suite.Name = testSuiteNameText.Text;
+            //loadTestSuiteForm(suite);
         }
 
         private void testSuiteCancelButton_Click(object sender, EventArgs e)
         {
-            TestSuite suite = testSuiteFormPanel.Tag as TestSuite;
-            loadTestSuiteForm(suite);
+            //TestSuite suite = testSuiteFormPanel.Tag as TestSuite;
+            //loadTestSuiteForm(suite);
         }
 
         private void saveTestCaseButton_Click(object sender, EventArgs e)
         {
-            TestCase testCase = testCaseFormPanel.Tag as TestCase;
-            testCase.Name = testCaseNameText.Text;
-            testCase.Summary = testCaseSummaryText.Text;
-            testCase.Preconditions = testCasePreconditionsText.Text;
-            foreach (Control box in actionsPanel.Controls)
-            {
-                Step step = box.Tag as Step;
-                if(step != null)
-                {
-                    step.Action = box.Text;
-                }
-            }
-            foreach (Control box in expectionsPanel.Controls)
-            {
-                Step step = box.Tag as Step;
-                if (step != null)
-                {
-                    step.ExpectedResult = box.Text;
-                }
-            }
+            //TestCase testCase = testCaseFormPanel.Tag as TestCase;
+            //testCase.Name = testCaseNameText.Text;
+            //testCase.Summary = testCaseSummaryText.Text;
+            //testCase.Preconditions = testCasePreconditionsText.Text;
+            //foreach (Control box in actionsPanel.Controls)
+            //{
+            //    Step step = box.Tag as Step;
+            //    if(step != null)
+            //    {
+            //        step.Action = box.Text;
+            //    }
+            //}
+            //foreach (Control box in expectionsPanel.Controls)
+            //{
+            //    Step step = box.Tag as Step;
+            //    if (step != null)
+            //    {
+            //        step.ExpectedResult = box.Text;
+            //    }
+            //}
         }
 
         private void cancelTestCaseButton_Click(object sender, EventArgs e)
         {
-            TestCase testCase = testCaseFormPanel.Tag as TestCase;
-            loadtestCaseForm(testCase);
+            //TestCase testCase = testCaseFormPanel.Tag as TestCase;
+            //loadtestCaseForm(testCase);
         }
 
         private void excelSheetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<TestSuite> suites = new List<TestSuite>();
-            foreach (TreeNode node in suiteTreeView.Nodes)
-            {
-                TestSuite suite = node.Tag as TestSuite;
-                suites.Add(suite);
-            }
-            if (suites.Count > 0)
-            {
-                SaveFileDialog dialog = new SaveFileDialog();
-                dialog.Filter = "Microsoft Excel Worksheet (*.xlsx)|*.xlsx|All files (*.*)|*.*";
-                DialogResult result = dialog.ShowDialog();
-                if (result == DialogResult.OK) // Test result.
-                {
-                    ExcelWriter file = new ExcelWriter(dialog.FileName);
-                    foreach (TestSuite suite in suites)
-                    {
-                        file.generateSuiteSheet(suite);
-                    }
-                    file.Save();
-                    file.Close();
-                }
-            }
+            //List<TestSuite> suites = new List<TestSuite>();
+            //foreach (TreeNode node in suiteTreeView.Nodes)
+            //{
+            //    TestSuite suite = node.Tag as TestSuite;
+            //    suites.Add(suite);
+            //}
+            //if (suites.Count > 0)
+            //{
+            //    SaveFileDialog dialog = new SaveFileDialog();
+            //    dialog.Filter = "Microsoft Excel Worksheet (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+            //    DialogResult result = dialog.ShowDialog();
+            //    if (result == DialogResult.OK) // Test result.
+            //    {
+            //        ExcelWriter file = new ExcelWriter(dialog.FileName);
+            //        foreach (TestSuite suite in suites)
+            //        {
+            //            file.generateSuiteSheet(suite);
+            //        }
+            //        file.Save();
+            //        file.Close();
+            //    }
+            //}
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -283,8 +284,8 @@ namespace TestLink2Excel
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string i = ((TestSuite)suiteTreeView.SelectedNode.Tag).Name;
-            MessageBox.Show(i);
+            //string i = ((TestSuite)suiteTreeView.SelectedNode.Tag).Name;
+            //MessageBox.Show(i);
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -294,25 +295,25 @@ namespace TestLink2Excel
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            suiteTreeView.Nodes.Add(makeSuiteTree(new TestSuite("<<New Test Suite>>",string.Empty)));
+            //suiteTreeView.Nodes.Add(makeSuiteTree(new TestSuite("<<New Test Suite>>",string.Empty)));
         }
 
         private void newNodeToolStripButton_Click(object sender, EventArgs e)
         {
-            TreeNode node = newNodeToolStripButton.Tag as TreeNode;
-            node.Nodes.Add(makeSuiteTree(new TestSuite("<<New Test Suite>>", string.Empty)));
+        //    TreeNode node = newNodeToolStripButton.Tag as TreeNode;
+        //    node.Nodes.Add(makeSuiteTree(new TestSuite("<<New Test Suite>>", string.Empty)));
         }
 
         private void newTestCaseToolStripButton_Click(object sender, EventArgs e)
         {
-            TreeNode node = newNodeToolStripButton.Tag as TreeNode;
-            TreeNode tcNode = new TreeNode();
-            tcNode.Text = "<<new Test Case>>";
-            tcNode.Tag = new TestCase("<<new Test Case>>");
-            node.Nodes.Add(tcNode);
-            tcNode.BeginEdit();
+            //TreeNode node = newNodeToolStripButton.Tag as TreeNode;
+            //TreeNode tcNode = new TreeNode();
+            //tcNode.Text = "<<new Test Case>>";
+            //tcNode.Tag = new TestCase("<<new Test Case>>");
+            //node.Nodes.Add(tcNode);
+            //tcNode.BeginEdit();
         }
-
+        
         private void suiteTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
@@ -324,18 +325,18 @@ namespace TestLink2Excel
 
         private void testLinkXlsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TestSuite suite = suiteTreeView.SelectedNode.Tag as TestSuite;
-            if (suite != null)
-            {
-                SaveFileDialog dialog = new SaveFileDialog();
-                dialog.Filter = "XML File (*.xml)|*.xml|All files (*.*)|*.*";
-                DialogResult result = dialog.ShowDialog();
-                if (result == DialogResult.OK) // Test result.
-                {
-                    XMLSuite x = new XMLSuite(suite);
-                    x.saveAs(dialog.FileName);
-                }
-            }
-        }
+            //TestSuite suite = suiteTreeView.SelectedNode.Tag as TestSuite;
+            //if (suite != null)
+            //{
+            //    SaveFileDialog dialog = new SaveFileDialog();
+            //    dialog.Filter = "XML File (*.xml)|*.xml|All files (*.*)|*.*";
+            //    DialogResult result = dialog.ShowDialog();
+            //    if (result == DialogResult.OK) // Test result.
+            //    {
+            //        XMLSuite x = new XMLSuite(suite);
+            //        x.saveAs(dialog.FileName);
+            //    }
+            //}
+        } 
     }
 }
