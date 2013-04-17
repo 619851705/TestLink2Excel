@@ -15,7 +15,7 @@ namespace TestLink2Excel.Utils
         private int row = 1;
         private int deep;
         
-        
+        //kamilek 
         private const int expectedResultCellDiv = 100;
 
         public ExcelWriter(string newFilePath)
