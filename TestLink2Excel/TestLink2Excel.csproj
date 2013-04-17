@@ -67,6 +67,18 @@
     <Compile Include="Controls\TestSuiteTreeView.Designer.cs">
       <DependentUpon>TestSuiteTreeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SuiteExportChoseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SuiteExportChoseForm.Designer.cs">
+      <DependentUpon>SuiteExportChoseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\ExcelWriter.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -92,6 +104,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TestSuiteTreeView.resx">
       <DependentUpon>TestSuiteTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SuiteExportChoseForm.resx">
+      <DependentUpon>SuiteExportChoseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

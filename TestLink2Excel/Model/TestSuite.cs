@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.CompilerServices;
+using TestLink2Excel.Utils;
+using System.ComponentModel;
 
 namespace TestLink2Excel.Model
 {
-    class TestSuite
+    public class TestSuite : INotifyPropertyChanged
     {
+        #region Fields
         private string name;
+        private string description;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        
         public string Name
         {
             get
@@ -17,10 +25,25 @@ namespace TestLink2Excel.Model
             set
             {
                 this.name = value;
+                NotifyPropertyChanged("Name");
+            }
+        }
+
+        public string Description
+        {
+             get
+            {
+                return this.description;
+            }
+            set
+            {
+                this.description = value;
                 ObjectHelper.RaiseChanged(this);
             }
         }
-        public string Description { get; set; }
+
+        #endregion
+       
 
         public List<TestSuite> UnderSuits { get; set; }
         public List<TestCase> Tcs { get; set; }
@@ -46,6 +69,16 @@ namespace TestLink2Excel.Model
                 if (i < under) i = under;
             }
             return i+1;
+        }
+
+       
+
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 }

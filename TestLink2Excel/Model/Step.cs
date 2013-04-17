@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TestLink2Excel.Model
 {
-    class Step
+    public class Step
     {
         public int StepNumber { get; set; }
         public string Action { get; set; }

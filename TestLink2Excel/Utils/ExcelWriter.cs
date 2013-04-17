@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using ClosedXML.Excel;
 using System.Xml;
+using TestLink2Excel.Model;
 
 namespace TestLink2Excel.Utils
 {
