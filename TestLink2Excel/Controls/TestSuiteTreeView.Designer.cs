@@ -45,6 +45,7 @@
             this.folderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.caseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.treeViewImages = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip1.SuspendLayout();
             this.treeContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -55,9 +56,12 @@
             this.suiteTreeView.ForeColor = System.Drawing.SystemColors.WindowText;
             this.suiteTreeView.FullRowSelect = true;
             this.suiteTreeView.HideSelection = false;
+            this.suiteTreeView.ImageIndex = 2;
+            this.suiteTreeView.ImageList = this.treeViewImages;
             this.suiteTreeView.LabelEdit = true;
             this.suiteTreeView.Location = new System.Drawing.Point(0, 25);
             this.suiteTreeView.Name = "suiteTreeView";
+            this.suiteTreeView.SelectedImageIndex = 0;
             this.suiteTreeView.Size = new System.Drawing.Size(239, 413);
             this.suiteTreeView.TabIndex = 3;
             // 
@@ -168,6 +172,14 @@
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             // 
+            // treeViewImages
+            // 
+            this.treeViewImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("treeViewImages.ImageStream")));
+            this.treeViewImages.TransparentColor = System.Drawing.Color.Transparent;
+            this.treeViewImages.Images.SetKeyName(0, "arrow-ico.ico");
+            this.treeViewImages.Images.SetKeyName(1, "note.ico");
+            this.treeViewImages.Images.SetKeyName(2, "small-folder.ico");
+            // 
             // TestSuiteTreeView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -201,6 +213,7 @@
 		private System.Windows.Forms.ToolStripMenuItem folderToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem caseToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ImageList treeViewImages;
 
     }
 }

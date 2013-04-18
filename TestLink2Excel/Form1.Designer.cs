@@ -42,7 +42,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.testSuiteTreeView1 = new TestLink2Excel.Controls.TestSuiteTreeView();
+            this.testSuiteTreeView = new TestLink2Excel.Controls.TestSuiteTreeView();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
             this.mainSplit.Panel1.SuspendLayout();
             this.mainSplit.SuspendLayout();
@@ -57,7 +57,7 @@
             // 
             // mainSplit.Panel1
             // 
-            this.mainSplit.Panel1.Controls.Add(this.testSuiteTreeView1);
+            this.mainSplit.Panel1.Controls.Add(this.testSuiteTreeView);
             this.mainSplit.Size = new System.Drawing.Size(922, 451);
             this.mainSplit.SplitterDistance = 245;
             this.mainSplit.TabIndex = 1;
@@ -159,13 +159,13 @@
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // testSuiteTreeView1
+            // testSuiteTreeView
             // 
-            this.testSuiteTreeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.testSuiteTreeView1.Location = new System.Drawing.Point(0, 0);
-            this.testSuiteTreeView1.Name = "testSuiteTreeView1";
-            this.testSuiteTreeView1.Size = new System.Drawing.Size(245, 451);
-            this.testSuiteTreeView1.TabIndex = 0;
+            this.testSuiteTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.testSuiteTreeView.Location = new System.Drawing.Point(0, 0);
+            this.testSuiteTreeView.Name = "testSuiteTreeView";
+            this.testSuiteTreeView.Size = new System.Drawing.Size(245, 451);
+            this.testSuiteTreeView.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -203,9 +203,8 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private TestCaseDetailsForm testCaseDetailsForm;
         private Controls.TestSuiteTreeView testSuiteTreeView;
-        private Controls.TestSuiteTreeView testSuiteTreeView1;
+        
     }
 }
 

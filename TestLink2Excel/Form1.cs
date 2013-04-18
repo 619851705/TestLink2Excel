@@ -66,8 +66,7 @@ namespace TestLink2Excel
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //string i = ((TestSuite)suiteTreeView.SelectedNode.Tag).Name;
-            //MessageBox.Show(i);
+            //todo 
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)

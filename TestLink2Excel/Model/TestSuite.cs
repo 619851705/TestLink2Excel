@@ -13,6 +13,11 @@ namespace TestLink2Excel.Model
         #region Fields
         private string name;
         private string description;
+        #endregion
+
+        #region Properties
+        public List<TestSuite> UnderSuits { get; set; }
+        public List<TestCase> Tcs { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         
@@ -38,16 +43,13 @@ namespace TestLink2Excel.Model
             set
             {
                 this.description = value;
-                ObjectHelper.RaiseChanged(this);
+                NotifyPropertyChanged("Descryption");
             }
         }
 
         #endregion
-       
 
-        public List<TestSuite> UnderSuits { get; set; }
-        public List<TestCase> Tcs { get; set; }
-
+        #region Constructors
         public TestSuite(string name, string descryption)
         {
             Name = name;
@@ -55,11 +57,14 @@ namespace TestLink2Excel.Model
             UnderSuits = new List<TestSuite>();
             Tcs = new List<TestCase>();
         }
+        #endregion
+
         
         public void addTestCase(TestCase tc)
         {
             Tcs.Add(tc);
         }
+        
         public int getSuitsDeep()
         {
             int i = 0;
@@ -73,7 +78,7 @@ namespace TestLink2Excel.Model
 
        
 
-        private void NotifyPropertyChanged(String info)
+        private void NotifyPropertyChanged(string info)
         {
             if (PropertyChanged != null)
             {
