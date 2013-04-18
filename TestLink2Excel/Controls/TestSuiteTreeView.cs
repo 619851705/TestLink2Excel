@@ -16,9 +16,13 @@ namespace TestLink2Excel.Controls
         #region Constructors
 		public TestSuiteTreeView()
         {
-            InitializeComponent();    
+            InitializeComponent();
+            
         }
 		#endregion
+
+        public event TreeViewEventHandler suiteNodeClickedEvent;
+        public event TreeViewEventHandler caseNodeClickedEvent;
 
         #region Public methodes
 
@@ -141,6 +145,22 @@ namespace TestLink2Excel.Controls
             copyToolStripButton.Enabled = true;
             deleteToolStripButton.Enabled = true;
         }
+
+        private void suiteNodeClicked(object sender, TreeViewEventArgs e)
+        {
+            if (suiteNodeClickedEvent != null)
+            {
+                suiteNodeClickedEvent(sender, e);
+            }
+        }
+
+        private void caseNodeClicked(object sender, TreeViewEventArgs e)
+        {
+            if (caseNodeClickedEvent != null)
+            {
+                caseNodeClickedEvent(sender, e);
+            }
+        }
         #endregion
 
         #region Events handlers
@@ -162,11 +182,11 @@ namespace TestLink2Excel.Controls
             TestCase testCase = e.Node.Tag as TestCase;
             if (suite != null)
             {
-                //showSuiteForm(suite); TODO
+                suiteNodeClicked(suite, e);
             }
             else if (testCase != null)
             {
-                //showTestCaseForm(testCase); TODO
+                caseNodeClickedEvent(testCase, e);
             }
             enableToolStripButtons(e.Node);
         }

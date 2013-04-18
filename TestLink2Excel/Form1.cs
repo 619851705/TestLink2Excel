@@ -18,7 +18,10 @@ namespace TestLink2Excel
         public MainForm()
         {
             InitializeComponent();
+            testSuiteTreeView.suiteNodeClickedEvent += new TreeViewEventHandler(testSuiteTreeView_suiteNodeClickedEvent);
+            testSuiteTreeView.caseNodeClickedEvent += new TreeViewEventHandler(testSuiteTreeView_caseNodeClickedEvent);
         }
+
         #endregion
         #region menuEventHandlers
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -108,6 +111,24 @@ namespace TestLink2Excel
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        void testSuiteTreeView_caseNodeClickedEvent(object sender, TreeViewEventArgs e)
+        {
+            if (testSuiteDetailsForm.Visible == true)
+            {
+                testSuiteDetailsForm.Visible = false;
+            }
+            testCaseDetailsForm.displayCase(sender as TestCase);
+        }
+
+        void testSuiteTreeView_suiteNodeClickedEvent(object sender, TreeViewEventArgs e)
+        {
+            if (testCaseDetailsForm.Visible == true)
+            {
+                testCaseDetailsForm.Visible = false;
+            }
+            testSuiteDetailsForm.displaySuite(sender as TestSuite);
         }
 		#endregion
 	}

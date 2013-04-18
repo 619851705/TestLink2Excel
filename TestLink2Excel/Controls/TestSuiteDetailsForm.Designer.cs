@@ -51,7 +51,6 @@
             this.testSuiteFormPanel.Name = "testSuiteFormPanel";
             this.testSuiteFormPanel.Size = new System.Drawing.Size(661, 478);
             this.testSuiteFormPanel.TabIndex = 5;
-            this.testSuiteFormPanel.Visible = false;
             // 
             // panel3
             // 
@@ -72,6 +71,7 @@
             this.testSuiteCancelButton.TabIndex = 1;
             this.testSuiteCancelButton.Text = "Cancel";
             this.testSuiteCancelButton.UseVisualStyleBackColor = true;
+            this.testSuiteCancelButton.Click += new System.EventHandler(this.testSuiteCancelButton_Click);
             // 
             // testSuiteSaveButton
             // 
@@ -82,6 +82,7 @@
             this.testSuiteSaveButton.TabIndex = 0;
             this.testSuiteSaveButton.Text = "Save";
             this.testSuiteSaveButton.UseVisualStyleBackColor = true;
+            this.testSuiteSaveButton.Click += new System.EventHandler(this.testSuiteSaveButton_Click);
             // 
             // panel2
             // 
