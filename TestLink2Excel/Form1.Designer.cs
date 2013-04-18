@@ -32,16 +32,16 @@
             this.mainSplit = new System.Windows.Forms.SplitContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excelSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testLinkXlsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.testSuiteTreeView = new TestLink2Excel.Controls.TestSuiteTreeView();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
             this.mainSplit.Panel1.SuspendLayout();
@@ -82,56 +82,10 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
-            // newToolStripMenuItem
-            // 
-            this.newToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripMenuItem.Image")));
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.newToolStripMenuItem.Text = "&New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.openToolStripMenuItem.Text = "&Open...";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
-            // 
-            // saveAsToolStripMenuItem
-            // 
-            this.saveAsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.excelSheetToolStripMenuItem,
-            this.testLinkXlsToolStripMenuItem});
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.saveAsToolStripMenuItem.Text = "Save As...";
-            // 
-            // excelSheetToolStripMenuItem
-            // 
-            this.excelSheetToolStripMenuItem.Name = "excelSheetToolStripMenuItem";
-            this.excelSheetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.excelSheetToolStripMenuItem.Text = "Excel sheet...";
-            this.excelSheetToolStripMenuItem.Click += new System.EventHandler(this.excelSheetToolStripMenuItem_Click);
-            // 
-            // testLinkXlsToolStripMenuItem
-            // 
-            this.testLinkXlsToolStripMenuItem.Name = "testLinkXlsToolStripMenuItem";
-            this.testLinkXlsToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-            this.testLinkXlsToolStripMenuItem.Text = "Test link xls...";
-            this.testLinkXlsToolStripMenuItem.Click += new System.EventHandler(this.testLinkXlsToolStripMenuItem_Click);
-            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 6);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.exitToolStripMenuItem.Text = "&E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -158,6 +112,59 @@
             this.menuStrip1.Size = new System.Drawing.Size(922, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripMenuItem.Image")));
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.newToolStripMenuItem.Text = "&New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.open_folder_ico;
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.openToolStripMenuItem.Text = "&Open...";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.excelSheetToolStripMenuItem,
+            this.testLinkXlsToolStripMenuItem});
+            this.saveAsToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.save_ico;
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.saveAsToolStripMenuItem.Text = "Save As...";
+            // 
+            // excelSheetToolStripMenuItem
+            // 
+            this.excelSheetToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.excel_ico;
+            this.excelSheetToolStripMenuItem.Name = "excelSheetToolStripMenuItem";
+            this.excelSheetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.excelSheetToolStripMenuItem.Text = "Excel sheet...";
+            this.excelSheetToolStripMenuItem.Click += new System.EventHandler(this.excelSheetToolStripMenuItem_Click);
+            // 
+            // testLinkXlsToolStripMenuItem
+            // 
+            this.testLinkXlsToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.testlink;
+            this.testLinkXlsToolStripMenuItem.Name = "testLinkXlsToolStripMenuItem";
+            this.testLinkXlsToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.testLinkXlsToolStripMenuItem.Text = "Test link xls...";
+            this.testLinkXlsToolStripMenuItem.Click += new System.EventHandler(this.testLinkXlsToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.delete_co;
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.exitToolStripMenuItem.Text = "&E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // testSuiteTreeView
             // 

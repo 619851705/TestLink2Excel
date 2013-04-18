@@ -12,7 +12,6 @@ namespace TestLink2Excel.Model
     {
         #region Fields
         private string name;
-        private string description;
         #endregion
 
         #region Properties
@@ -34,18 +33,7 @@ namespace TestLink2Excel.Model
             }
         }
 
-        public string Description
-        {
-             get
-            {
-                return this.description;
-            }
-            set
-            {
-                this.description = value;
-                NotifyPropertyChanged("Descryption");
-            }
-        }
+        public string Description { get; set; }
 
         #endregion
 

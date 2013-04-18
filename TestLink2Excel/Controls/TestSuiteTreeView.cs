@@ -16,7 +16,7 @@ namespace TestLink2Excel.Controls
         #region Constructors
 		public TestSuiteTreeView()
         {
-            InitializeComponent();
+            InitializeComponent();    
         }
 		#endregion
 
@@ -59,8 +59,28 @@ namespace TestLink2Excel.Controls
                 }
             }
         }
-
-
+        /// <summary>
+        /// Update given test case node Text to equals with test case Name.
+        /// </summary>
+        /// <param name="tc"></param>
+        /// <param name="nodes"></param>
+        private void updateTreeViewCaseNames(TestCase tc, TreeNodeCollection nodes)
+        {
+            foreach (TreeNode node in nodes)
+            {
+                TestCase tcTag = node.Tag as TestCase;
+                if (tcTag != null && tcTag.Equals(tc))
+                {
+                    suiteTreeView.BeginUpdate();
+                    node.Text = node.Text = tc.Name;
+                    suiteTreeView.EndUpdate();
+                }
+                else if (node.Nodes.Count > 0)
+                {
+                    updateTreeViewCaseNames(tc, node.Nodes);
+                }
+            }
+        }
 
 
         /// <summary>
@@ -85,7 +105,8 @@ namespace TestLink2Excel.Controls
 
 			foreach (TestCase testCase in suite.Tcs)
 			{
-				TreeNode tcNode = new TreeNode();
+                testCase.PropertyChanged += new PropertyChangedEventHandler(testCase_PropertyChanged);
+                TreeNode tcNode = new TreeNode();
 				tcNode.Text = testCase.Name;
 				tcNode.Tag = testCase;
 				tcNode.ImageIndex = 1;
@@ -94,13 +115,60 @@ namespace TestLink2Excel.Controls
 			}
 			return node;
         }
+
+        /// <summary>
+        /// Disable all tool strip buttons exluded paste.
+        /// </summary>
+        private void disableToolStripButtons()
+        {
+            foreach (ToolStripItem item in toolStrip.Items)
+            {
+                ToolStripButton button = item as ToolStripButton;
+                if (button != null && !button.Equals(pasteToolStripButton)) button.Enabled = false;
+            }
+        }
+        /// <summary>
+        /// Enable tool strip buttons with active action for given node.
+        /// </summary>
+        /// <param name="treeNode"></param>
+        private void enableToolStripButtons(TreeNode treeNode)
+        {
+            disableToolStripButtons();
+            if (treeNode.Index > 0) moveUpToolStripButton.Enabled = true;
+            if (treeNode.Parent != null && (treeNode.Index < treeNode.Parent.Nodes.Count - 1)) moveDownToolStripButton.Enabled = true;
+            newNodeToolStripButton.Enabled = true;
+            newTestCaseToolStripButton.Enabled = true;
+            copyToolStripButton.Enabled = true;
+            deleteToolStripButton.Enabled = true;
+        }
         #endregion
 
         #region Events handlers
-        void suite_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void suite_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             TestSuite suite = sender as TestSuite;
             updateTreeViewSuiteNames(suite, suiteTreeView.Nodes);
+        }
+
+        private void testCase_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            TestCase tc = sender as TestCase;
+            updateTreeViewCaseNames(tc, suiteTreeView.Nodes);
+        }
+
+        private void suiteTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TestSuite suite = e.Node.Tag as TestSuite;
+            TestCase testCase = e.Node.Tag as TestCase;
+            if (suite != null)
+            {
+                //showSuiteForm(suite); TODO
+            }
+            else if (testCase != null)
+            {
+                //showTestCaseForm(testCase); TODO
+            }
+            enableToolStripButtons(e.Node);
         }
 
 
