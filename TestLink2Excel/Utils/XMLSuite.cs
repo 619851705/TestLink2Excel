@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Windows.Forms;
+using TestLink2Excel.Model;
 
-namespace TestLink2Excel
+namespace TestLink2Excel.Utils
 {
-    class XMLSuite
+    public class XMLSuite
     {
         private XmlDocument suite;
+        private XmlElement root;
 
         public XMLSuite(string path)
         {
@@ -21,15 +23,21 @@ namespace TestLink2Excel
         }
 
 
-        public XMLSuite(TestSuite suite)
+        public XMLSuite()
         {
             this.suite = new XmlDocument();
             XmlNode n = this.suite.CreateNode(XmlNodeType.XmlDeclaration,"","");
             this.suite.AppendChild(n);
-            var xmlelem = writeSuite(suite);
-            this.suite.AppendChild(xmlelem);
-            
+            root = this.suite.CreateElement("", "testsuite", "");
+            this.suite.AppendChild(root);
         }
+
+        public void AddSuite(TestSuite suite)
+        {
+            var xmlelem = writeSuite(suite);
+            root.AppendChild(xmlelem);
+        }
+
 
         public void saveAs(string path)
         {

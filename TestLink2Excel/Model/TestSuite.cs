@@ -2,12 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.CompilerServices;
+using TestLink2Excel.Utils;
+using System.ComponentModel;
 
-namespace TestLink2Excel
+namespace TestLink2Excel.Model
 {
-    class TestSuite
+    public class TestSuite : INotifyPropertyChanged
     {
+        #region Fields
         private string name;
+        #endregion
+
+        #region Properties
+        public List<TestSuite> UnderSuits { get; set; }
+        public List<TestCase> Tcs { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        
         public string Name
         {
             get
@@ -17,14 +29,15 @@ namespace TestLink2Excel
             set
             {
                 this.name = value;
-                ObjectHelper.RaiseChanged(this);
+                NotifyPropertyChanged("Name");
             }
         }
+
         public string Description { get; set; }
 
-        public List<TestSuite> UnderSuits { get; set; }
-        public List<TestCase> Tcs { get; set; }
+        #endregion
 
+        #region Constructors
         public TestSuite(string name, string descryption)
         {
             Name = name;
@@ -32,11 +45,14 @@ namespace TestLink2Excel
             UnderSuits = new List<TestSuite>();
             Tcs = new List<TestCase>();
         }
+        #endregion
+
         
         public void addTestCase(TestCase tc)
         {
             Tcs.Add(tc);
         }
+        
         public int getSuitsDeep()
         {
             int i = 0;
@@ -46,6 +62,16 @@ namespace TestLink2Excel
                 if (i < under) i = under;
             }
             return i+1;
+        }
+
+       
+
+        private void NotifyPropertyChanged(string info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 }

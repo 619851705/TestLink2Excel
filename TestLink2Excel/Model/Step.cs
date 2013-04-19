@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TestLink2Excel
+namespace TestLink2Excel.Model
 {
-    class Step
+    public class Step
     {
         public int StepNumber { get; set; }
         public string Action { get; set; }

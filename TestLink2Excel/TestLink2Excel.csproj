@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Octopus.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Images\Icons\Octopus.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClosedXML">
@@ -55,20 +55,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExcelWriter.cs" />
+    <Compile Include="Commons\Messages.cs" />
+    <Compile Include="Commons\WindowsNames.cs" />
+    <Compile Include="Controls\TestSuiteDetailsForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TestSuiteDetailsForm.Designer.cs">
+      <DependentUpon>TestSuiteDetailsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TestSuiteTreeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TestSuiteTreeView.Designer.cs">
+      <DependentUpon>TestSuiteTreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\SuiteExportChoseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SuiteExportChoseForm.Designer.cs">
+      <DependentUpon>SuiteExportChoseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ExcelWriter.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ObjectHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Step.cs" />
-    <Compile Include="TestCase.cs" />
-    <Compile Include="TestSuite.cs" />
-    <Compile Include="XMLSuite.cs" />
+    <Compile Include="Model\Step.cs" />
+    <Compile Include="Model\TestCase.cs" />
+    <Compile Include="Controls\TestCaseDetailsForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TestCaseDetailsForm.Designer.cs">
+      <DependentUpon>TestCaseDetailsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TestSuite.cs" />
+    <Compile Include="Utils\XMLSuite.cs" />
+    <EmbeddedResource Include="Controls\TestSuiteDetailsForm.resx">
+      <DependentUpon>TestSuiteDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TestSuiteTreeView.resx">
+      <DependentUpon>TestSuiteTreeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SuiteExportChoseForm.resx">
+      <DependentUpon>SuiteExportChoseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -82,6 +125,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Controls\TestCaseDetailsForm.resx">
+      <DependentUpon>TestCaseDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,11 +139,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\file-new-icon.png" />
+    <None Include="Resources\Images\Icons\file-new-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LunascapeLunaIcon.ico" />
-    <Content Include="Octopus.ico" />
+    <None Include="Resources\Images\Images\Hagios_Ktulu_by_TheZebu.jpg" />
+    <None Include="Resources\Images\Icons\excel-ico.ico" />
+    <Content Include="Resources\Images\Icons\Octopus.ico" />
+    <None Include="Resources\Images\Icons\testlink.png" />
+    <None Include="Resources\Images\Icons\save-ico.ico" />
+    <None Include="Resources\Images\Icons\open_folder_ico.ico" />
+    <None Include="Resources\Images\Icons\treeView\paste-ico.ico" />
+    <None Include="Resources\Images\Icons\treeView\move-up-ico.ico" />
+    <None Include="Resources\Images\Icons\treeView\move-down-ico.ico" />
+    <None Include="Resources\Images\Icons\treeView\delete-co.ico" />
+    <None Include="Resources\Images\Icons\treeView\copy-ico.ico" />
+    <None Include="Resources\Images\Icons\treeView\add-note.ico" />
+    <None Include="Resources\Images\Icons\treeView\add-folder-ico.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\DataSources\" />

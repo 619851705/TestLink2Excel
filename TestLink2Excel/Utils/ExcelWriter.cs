@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using ClosedXML.Excel;
 using System.Xml;
+using TestLink2Excel.Model;
 
-namespace TestLink2Excel
+namespace TestLink2Excel.Utils
 {
     class ExcelWriter
     {
@@ -14,7 +15,7 @@ namespace TestLink2Excel
         private int row = 1;
         private int deep;
         
-        
+        //kamilek 
         private const int expectedResultCellDiv = 100;
 
         public ExcelWriter(string newFilePath)

@@ -117,38 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>129, 21</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="newToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAm5JREFUOE+F
-        kV1IU2EYx5cbYcSKqLvAoshGd5GEF23OMWocWbBqUhTlxdj6Evq4CO2LEpcuLKMu6qYuosJF0WaxZnrh
-        sijFOZV9qduqk9UYyuZ23NnO2Xl63zOOdNygB37POec9z////s97JAAgYjGbkyF20HT+ZmJ+4XMgQpqD
-        0Z9rl88J8C3Pwko6x9QiYRtiGJHP0jlIU1kIf5sF/8yPGJlIXeu4fWdjicGhxiO7aIYLIIMCEsK/YBPy
-        zxxEyDhQNAMf+gecJQZVmzbvDEzH0gzLicTLyaGYbIEDo9GoFxng1tF1z86imyydLysWwOXxfOzDGgG+
-        VW9XqKZjZOZ/KdBnQp4pcARB1IsMMC09p4duBI9Bs08LrZON4Jp9AelFqsQEl8PZ+1LQ8e2sT93UFtLB
-        xQkCvsy7YTDxBsyje+D+1CVIUimRAU6BkrIGwwHtkkF7iAjcChNwfKQGAgvDaAlgLOmBt7+fgIN8LDLA
-        4Hrv7nOgS9HgbmR/ph0leBBphWjGzw/gwgbX/UdLDPAfKRQ4dp9OV8cbWMPETOfUXhS9lxdm2QywHAPW
-        oAlOelUiMTpEfiY+lwLDQWMTb9DsU9u6Iw1gC5vgYeQqPIpeAYbLwdPvnehc9Eu7FoVJ1tbV7dq6rdog
-        kUhW8wZmr2rD+XHN0LnxOjiBzuGUVw3WkAnOjGnA9es5L0xTNPS8dk7U7K61IOF6rMPwDWMZVa6zeJVW
-        FDloHlFSlycPQ3/cDhm0u+OdO1Sv0V6oqKioEuYFRA8CUqlU/sz+6uvA4CdS16BvkclkW8rNYcouYuTy
-        NYrKylUKFHdFufdFQPIXFPsQnBTUni4AAAAASUVORK5CYII=
-</value>
-  </data>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>245, 21</value>
-  </metadata>
-  <metadata name="xlsxSaveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>378, 21</value>
-  </metadata>
-  <metadata name="xmlSaveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>528, 21</value>
-  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAA8AAAAQAAEABAAmSAAA9gAAADAwEAABAAQAaAYAABxJAAAgIBAAAQAEAOgCAACETwAAGBgQAAEA
