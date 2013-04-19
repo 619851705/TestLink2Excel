@@ -132,6 +132,16 @@ namespace TestLink2Excel.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Hagios_Ktulu_by_TheZebu {
+            get {
+                object obj = ResourceManager.GetObject("Hagios_Ktulu_by_TheZebu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap move_down_ico {
             get {
                 object obj = ResourceManager.GetObject("move-down-ico", resourceCulture);

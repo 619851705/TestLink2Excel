@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TestLink2Excel.Dialogs;
 using TestLink2Excel.Model;
 using TestLink2Excel.Properties;
 using TestLink2Excel.Utils;
@@ -53,9 +54,10 @@ namespace TestLink2Excel
             }
 		}
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItemClick(object sender, EventArgs e)
         {
-            //TODO 
+            AboutBox about = new AboutBox();
+            about.ShowDialog();
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)

@@ -140,6 +140,7 @@
     <None Include="Resources\Images\Icons\file-new-icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Images\Images\Hagios_Ktulu_by_TheZebu.jpg" />
     <None Include="Resources\Images\Icons\excel-ico.ico" />
     <Content Include="Resources\Images\Icons\Octopus.ico" />
     <None Include="Resources\Images\Icons\testlink.png" />
