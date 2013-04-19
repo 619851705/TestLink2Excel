@@ -122,7 +122,9 @@ namespace TestLink2Excel.Controls
 		private TreeNode MakeSuiteTree(TestSuite suite)
         {
             TreeNode node = new TreeNode();
-
+            node.Text = suite.Name;
+            node.Tag = suite;
+            suite.PropertyChanged += new PropertyChangedEventHandler(suite_PropertyChanged);
 			foreach (TestSuite s in suite.UnderSuits)
 			{
 				node.Nodes.Add(MakeSuiteTree(s));
