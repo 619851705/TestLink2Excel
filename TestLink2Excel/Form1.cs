@@ -13,7 +13,6 @@ namespace TestLink2Excel
 {
     public partial class MainForm : Form
     {
-
         #region Constructors
         public MainForm()
         {
@@ -23,7 +22,8 @@ namespace TestLink2Excel
         }
 
         #endregion
-        #region menuEventHandlers
+
+        #region Event Handlers
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
 			OpenFileDialog dialog = new OpenFileDialog();
@@ -43,28 +43,16 @@ namespace TestLink2Excel
 
 		private void excelSheetToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-            //List<TestSuite> suites = new List<TestSuite>();
-            //foreach (TreeNode node in suiteTreeView.Nodes)
-            //{
-            //    TestSuite suite = node.Tag as TestSuite;
-            //    suites.Add(suite);
-            //}
-            //if (suites.Count > 0)
-            //{
-            //    SaveFileDialog dialog = new SaveFileDialog();
-            //    dialog.Filter = "Microsoft Excel Worksheet (*.xlsx)|*.xlsx|All files (*.*)|*.*";
-            //    DialogResult result = dialog.ShowDialog();
-            //    if (result == DialogResult.OK) // Test result.
-            //    {
-            //        ExcelWriter file = new ExcelWriter(dialog.FileName);
-            //        foreach (TestSuite suite in suites)
-            //        {
-            //            file.generateSuiteSheet(suite);
-            //        }
-            //        file.Save();
-            //        file.Close();
-            //    }
-            //}
+            if (testSuiteTreeView.Count > 0)
+            {
+                SaveFileDialog dialog = new SaveFileDialog();
+                dialog.Filter = "Microsoft Excel Worksheet (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK) // Test result.
+                {
+                    testSuiteTreeView.generateExcelFile(dialog.FileName);
+                }
+            }
 		}
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

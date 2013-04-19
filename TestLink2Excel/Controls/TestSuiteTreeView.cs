@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TestLink2Excel.Model;
+using TestLink2Excel.Utils;
+using TestLink2Excel.Dialogs;
 
 namespace TestLink2Excel.Controls
 {
@@ -23,6 +25,7 @@ namespace TestLink2Excel.Controls
 
         public event TreeViewEventHandler suiteNodeClickedEvent;
         public event TreeViewEventHandler caseNodeClickedEvent;
+        public int Count { get { return suiteTreeView.Nodes.Count; } }
 
         #region Public methodes
 
@@ -36,6 +39,26 @@ namespace TestLink2Excel.Controls
             suiteTreeView.Nodes.Add(makeSuiteTree(suite));
             suiteTreeView.EndUpdate();
 		}
+
+        public void generateExcelFile(string path)
+        {
+            SuiteExportChoseForm exportDialog = new SuiteExportChoseForm(suiteTreeView.Nodes);
+            exportDialog.ShowDialog();
+            if (exportDialog.Result == DialogResult.OK)
+            {
+
+                List<TestSuite> suites = makeSuiteList(exportDialog.Nodes);
+                ExcelWriter file = new ExcelWriter(path);
+                foreach (TestSuite suite in suites)
+                {
+                    file.generateSuiteSheet(suite);
+                } 
+                file.Save();
+                file.Close();
+            }
+        }
+
+
         #endregion
 
         #region Private methodes
@@ -119,6 +142,39 @@ namespace TestLink2Excel.Controls
 			}
 			return node;
         }
+
+        private List<TestSuite> makeSuiteList(TreeNodeCollection nodes)
+        {
+            List<TestSuite> suites = new List<TestSuite>();
+            foreach (TreeNode node in nodes)
+            {
+                if(node.Checked == true && node.Nodes.Count > 0)
+                {
+                    TestSuite suite = makeSuite(node);
+                    suites.Add(suite);
+                }
+            }
+            return suites;
+        }
+
+        private TestSuite makeSuite(TreeNode node)
+        {
+            TestSuite suite = new TestSuite((node.Tag as TestSuite).Name, (node.Tag as TestSuite).Description);
+            foreach (TreeNode n in node.Nodes)
+            {
+                if (n.Nodes.Count > 0 && n.Checked == true)
+                {
+                    suite.UnderSuits.Add(makeSuite(n));
+                }
+                else if (n.Checked == true && (n.Tag as TestCase) != null)
+                {
+                    suite.Tcs.Add(n.Tag as TestCase);
+                }
+            }
+            return suite;
+        }
+
+
 
         /// <summary>
         /// Disable all tool strip buttons exluded paste.
