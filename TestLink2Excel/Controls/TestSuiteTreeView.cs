@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using TestLink2Excel.Model;
 using TestLink2Excel.Utils;
@@ -24,8 +19,8 @@ namespace TestLink2Excel.Controls
 		#endregion
 
         #region Properties
-        public event TreeViewEventHandler suiteNodeClickedEvent;
-        public event TreeViewEventHandler caseNodeClickedEvent;
+        public event TreeViewEventHandler SuiteNodeClickedEvent;
+        public event TreeViewEventHandler CaseNodeClickedEvent;
         public int Count { get { return suiteTreeView.Nodes.Count; } }
         #endregion
 
@@ -35,14 +30,14 @@ namespace TestLink2Excel.Controls
 		/// Generating tree node based on TestSuite object.
 		/// </summary>
 		/// <param name="suite"></param>
-		public void generateTreeNode(TestSuite suite)
+		public void GenerateTreeNode(TestSuite suite)
 		{
             suiteTreeView.BeginUpdate();
-            suiteTreeView.Nodes.Add(makeSuiteTree(suite));
+            suiteTreeView.Nodes.Add(MakeSuiteTree(suite));
             suiteTreeView.EndUpdate();
 		}
 
-        public void generateExcelFile(string path)
+        public void GenerateExcelFile(string path)
         {
             SuiteExportChoseForm exportDialog = new SuiteExportChoseForm(suiteTreeView.Nodes);
             exportDialog.ShowDialog();
@@ -60,6 +55,13 @@ namespace TestLink2Excel.Controls
             }
         }
 
+        /// <summary>
+        /// Clear tree view Nodes.
+        /// </summary>
+        public void Clear()
+        {
+            suiteTreeView.Nodes.Clear();
+        }
 
         #endregion
 
@@ -71,7 +73,7 @@ namespace TestLink2Excel.Controls
         /// </summary>
         /// <param name="suite"></param>
         /// <param name="nodes"></param>
-        private void updateTreeViewSuiteNames(TestSuite suite, TreeNodeCollection nodes)
+        private void UpdateTreeViewSuiteNames(TestSuite suite, TreeNodeCollection nodes)
         {
             foreach (TreeNode node in nodes)
             {
@@ -84,7 +86,7 @@ namespace TestLink2Excel.Controls
                 }
                 else if (node.Nodes.Count > 0)
                 {
-                    updateTreeViewSuiteNames(suite, node.Nodes);
+                    UpdateTreeViewSuiteNames(suite, node.Nodes);
                 }
             }
         }
@@ -93,7 +95,7 @@ namespace TestLink2Excel.Controls
         /// </summary>
         /// <param name="tc"></param>
         /// <param name="nodes"></param>
-        private void updateTreeViewCaseNames(TestCase tc, TreeNodeCollection nodes)
+        private void UpdateTreeViewCaseNames(TestCase tc, TreeNodeCollection nodes)
         {
             foreach (TreeNode node in nodes)
             {
@@ -106,7 +108,7 @@ namespace TestLink2Excel.Controls
                 }
                 else if (node.Nodes.Count > 0)
                 {
-                    updateTreeViewCaseNames(tc, node.Nodes);
+                    UpdateTreeViewCaseNames(tc, node.Nodes);
                 }
             }
         }
@@ -117,19 +119,13 @@ namespace TestLink2Excel.Controls
         /// </summary>
         /// <param name="suite"></param>
         /// <returns></returns>
-		private TreeNode makeSuiteTree(TestSuite suite)
-		{
-			TreeNode node = new TreeNode();
-			node.Text = suite.Name;
-			node.Tag = suite;
-			node.SelectedImageIndex = 0;
-			node.ImageIndex = 2;
-
-            suite.PropertyChanged += new PropertyChangedEventHandler(suite_PropertyChanged);
+		private TreeNode MakeSuiteTree(TestSuite suite)
+        {
+            TreeNode node = new TreeNode();
 
 			foreach (TestSuite s in suite.UnderSuits)
 			{
-				node.Nodes.Add(makeSuiteTree(s));
+				node.Nodes.Add(MakeSuiteTree(s));
 			}
 
 			foreach (TestCase testCase in suite.Tcs)
@@ -206,17 +202,17 @@ namespace TestLink2Excel.Controls
 
         private void suiteNodeClicked(object sender, TreeViewEventArgs e)
         {
-            if (suiteNodeClickedEvent != null)
+            if (this.SuiteNodeClickedEvent != null)
             {
-                suiteNodeClickedEvent(sender, e);
+                this.SuiteNodeClickedEvent(sender, e);
             }
         }
 
         private void caseNodeClicked(object sender, TreeViewEventArgs e)
         {
-            if (caseNodeClickedEvent != null)
+            if (this.CaseNodeClickedEvent != null)
             {
-                caseNodeClickedEvent(sender, e);
+                this.CaseNodeClickedEvent(sender, e);
             }
         }
         #endregion
@@ -225,13 +221,13 @@ namespace TestLink2Excel.Controls
         private void suite_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             TestSuite suite = sender as TestSuite;
-            updateTreeViewSuiteNames(suite, suiteTreeView.Nodes);
+            UpdateTreeViewSuiteNames(suite, suiteTreeView.Nodes);
         }
 
         private void testCase_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             TestCase tc = sender as TestCase;
-            updateTreeViewCaseNames(tc, suiteTreeView.Nodes);
+            UpdateTreeViewCaseNames(tc, suiteTreeView.Nodes);
         }
 
         private void suiteTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -244,7 +240,7 @@ namespace TestLink2Excel.Controls
             }
             else if (testCase != null)
             {
-                caseNodeClickedEvent(testCase, e);
+                this.CaseNodeClickedEvent(testCase, e);
             }
             enableToolStripButtons(e.Node);
         }

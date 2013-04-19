@@ -1,31 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using TestLink2Excel.Dialogs;
 using TestLink2Excel.Model;
-using TestLink2Excel.Properties;
 using TestLink2Excel.Utils;
 
 namespace TestLink2Excel
 {
+    /// <summary>
+    /// Main app window.
+    /// </summary>
     public partial class MainForm : Form
     {
         #region Constructors
         public MainForm()
         {
             InitializeComponent();
-            testSuiteTreeView.suiteNodeClickedEvent += new TreeViewEventHandler(testSuiteTreeView_suiteNodeClickedEvent);
-            testSuiteTreeView.caseNodeClickedEvent += new TreeViewEventHandler(testSuiteTreeView_caseNodeClickedEvent);
+            testSuiteTreeView.SuiteNodeClickedEvent += new TreeViewEventHandler(TestSuiteTreeViewSuiteNodeClickedEvent);
+            testSuiteTreeView.CaseNodeClickedEvent += new TreeViewEventHandler(TestSuiteTreeViewCaseNodeClickedEvent);
         }
 
         #endregion
 
         #region Event Handlers
+        /// <summary>
+        /// Open file dialog and load selected xml file into treeview.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenToolStripMenuItemClick(object sender, EventArgs e)
         {
 
@@ -36,52 +38,51 @@ namespace TestLink2Excel
 			    List<TestSuite> suites = a.makeTestSuite();
 			    foreach (TestSuite suite in suites)
 			    {
-					testSuiteTreeView.generateTreeNode(suite);
+					testSuiteTreeView.GenerateTreeNode(suite);
 			    }
 			
 			}
         }
-
-		private void ExcelSheetToolStripMenuItemClick(object sender, EventArgs e)
+		/// <summary>
+		/// Opens save file dialog, generate excel file and save them with given filename.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+        private void ExcelSheetToolStripMenuItemClick(object sender, EventArgs e)
 		{
             if (testSuiteTreeView.Count > 0)
             {
                 DialogResult result = saveFileDialog.ShowDialog();
                 if (result == DialogResult.OK) // Test result.
                 {
-                    testSuiteTreeView.generateExcelFile(saveFileDialog.FileName);
+                    testSuiteTreeView.GenerateExcelFile(saveFileDialog.FileName);
                 }
             }
 		}
-
+        /// <summary>
+        /// Opens AboutBox dialog.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AboutToolStripMenuItemClick(object sender, EventArgs e)
         {
             AboutBox about = new AboutBox();
             about.ShowDialog();
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NewToolStripMenuItemClick(object sender, EventArgs e)
         {
-            //suiteTreeView.Nodes.Add(makeSuiteTree(new TestSuite("<<New Test Suite>>",string.Empty)));
+            if (testSuiteTreeView.Count == 0) return;
+            DialogResult result = MessageBox.Show("Are You sure? \nAll Testsuits will be removed.","Confrimation",MessageBoxButtons.OKCancel);
+            if (result == DialogResult.OK)
+            {
+                testSuiteTreeView.Clear();
+                testSuiteDetailsForm.Hide();
+                testCaseDetailsForm.Hide();
+            }
         }
-		private void newNodeToolStripButton_Click(object sender, EventArgs e)
-		{
-			//    TreeNode node = newNodeToolStripButton.Tag as TreeNode;
-			//    node.Nodes.Add(makeSuiteTree(new TestSuite("<<New Test Suite>>", string.Empty)));
-		}
 
-		private void newTestCaseToolStripButton_Click(object sender, EventArgs e)
-		{
-			//TreeNode node = newNodeToolStripButton.Tag as TreeNode;
-			//TreeNode tcNode = new TreeNode();
-			//tcNode.Text = "<<new Test Case>>";
-			//tcNode.Tag = new TestCase("<<new Test Case>>");
-			//node.Nodes.Add(tcNode);
-			//tcNode.BeginEdit();
-            //
-		}
-
-		private void testLinkXlsToolStripMenuItem_Click(object sender, EventArgs e)
+		private void TestLinkXlsToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			//TestSuite suite = suiteTreeView.SelectedNode.Tag as TestSuite;
 			//if (suite != null)
@@ -96,12 +97,12 @@ namespace TestLink2Excel
 			//    }
 			//}
 		}
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitToolStripMenuItemClick(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        void testSuiteTreeView_caseNodeClickedEvent(object sender, TreeViewEventArgs e)
+        void TestSuiteTreeViewCaseNodeClickedEvent(object sender, TreeViewEventArgs e)
         {
             if (testSuiteDetailsForm.Visible == true)
             {
@@ -110,7 +111,7 @@ namespace TestLink2Excel
             testCaseDetailsForm.displayCase(sender as TestCase);
         }
 
-        void testSuiteTreeView_suiteNodeClickedEvent(object sender, TreeViewEventArgs e)
+        void TestSuiteTreeViewSuiteNodeClickedEvent(object sender, TreeViewEventArgs e)
         {
             if (testCaseDetailsForm.Visible == true)
             {

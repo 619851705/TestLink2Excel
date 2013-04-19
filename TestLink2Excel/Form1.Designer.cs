@@ -125,7 +125,7 @@
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.newToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.newToolStripMenuItem.Text = "&New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItemClick);
             // 
             // openToolStripMenuItem
             // 
@@ -160,7 +160,7 @@
             this.testLinkXlsToolStripMenuItem.Name = "testLinkXlsToolStripMenuItem";
             this.testLinkXlsToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.testLinkXlsToolStripMenuItem.Text = "Test link xls...";
-            this.testLinkXlsToolStripMenuItem.Click += new System.EventHandler(this.testLinkXlsToolStripMenuItem_Click);
+            this.testLinkXlsToolStripMenuItem.Click += new System.EventHandler(this.TestLinkXlsToolStripMenuItemClick);
             // 
             // toolStripMenuItem1
             // 
@@ -174,7 +174,7 @@
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.exitToolStripMenuItem.Text = "&E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
             // 
             // helpToolStripMenuItem
             // 
