@@ -46,7 +46,8 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.xlsxSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.xmlSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
             this.mainSplit.Panel1.SuspendLayout();
             this.mainSplit.Panel2.SuspendLayout();
@@ -206,9 +207,13 @@
             // 
             this.openFileDialog.Filter = "XML suite file (*.xml)|*.xml|All files (*.*)|*.*";
             // 
-            // saveFileDialog
+            // xlsxSaveFileDialog
             // 
-            this.saveFileDialog.Filter = "Microsoft Excel Worksheet (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+            this.xlsxSaveFileDialog.Filter = "Microsoft Excel Worksheet (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+            // 
+            // xmlSaveFileDialog
+            // 
+            this.xmlSaveFileDialog.Filter = "\"XML File (*.xml)|*.xml|All files (*.*)|*.*\"";
             // 
             // MainForm
             // 
@@ -251,7 +256,8 @@
         private Controls.TestSuiteDetailsForm testSuiteDetailsForm;
         private TestCaseDetailsForm testCaseDetailsForm;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.SaveFileDialog xlsxSaveFileDialog;
+        private System.Windows.Forms.SaveFileDialog xmlSaveFileDialog;
         
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using TestLink2Excel.Commons;
 using TestLink2Excel.Dialogs;
 using TestLink2Excel.Model;
 using TestLink2Excel.Utils;
@@ -43,22 +44,7 @@ namespace TestLink2Excel
 			
 			}
         }
-		/// <summary>
-		/// Opens save file dialog, generate excel file and save them with given filename.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-        private void ExcelSheetToolStripMenuItemClick(object sender, EventArgs e)
-		{
-            if (testSuiteTreeView.Count > 0)
-            {
-                DialogResult result = saveFileDialog.ShowDialog();
-                if (result == DialogResult.OK) // Test result.
-                {
-                    testSuiteTreeView.GenerateExcelFile(saveFileDialog.FileName);
-                }
-            }
-		}
+
         /// <summary>
         /// Opens AboutBox dialog.
         /// </summary>
@@ -73,7 +59,7 @@ namespace TestLink2Excel
         private void NewToolStripMenuItemClick(object sender, EventArgs e)
         {
             if (testSuiteTreeView.Count == 0) return;
-            DialogResult result = MessageBox.Show("Are You sure? \nAll Testsuits will be removed.","Confrimation",MessageBoxButtons.OKCancel);
+            DialogResult result = MessageBox.Show(Messages.AreYouSure,WindowsNames.Confirmation,MessageBoxButtons.OKCancel);
             if (result == DialogResult.OK)
             {
                 testSuiteTreeView.Clear();
@@ -82,20 +68,33 @@ namespace TestLink2Excel
             }
         }
 
+        /// <summary>
+        /// Opens save file dialog, generate excel file and save them with given filename.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ExcelSheetToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            if (testSuiteTreeView.Count > 0)
+            {
+                DialogResult result = xlsxSaveFileDialog.ShowDialog();
+                if (result == DialogResult.OK) // Test result.
+                {
+                    testSuiteTreeView.GenerateExcelFile(xlsxSaveFileDialog.FileName);
+                }
+            }
+        }
+
 		private void TestLinkXlsToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			//TestSuite suite = suiteTreeView.SelectedNode.Tag as TestSuite;
-			//if (suite != null)
-			//{
-			//    SaveFileDialog dialog = new SaveFileDialog();
-			//    dialog.Filter = "XML File (*.xml)|*.xml|All files (*.*)|*.*";
-			//    DialogResult result = dialog.ShowDialog();
-			//    if (result == DialogResult.OK) // Test result.
-			//    {
-			//        XMLSuite x = new XMLSuite(suite);
-			//        x.saveAs(dialog.FileName);
-			//    }
-			//}
+            if (testSuiteTreeView.Count > 0)
+            {
+                DialogResult result = xmlSaveFileDialog.ShowDialog();
+                if (result == DialogResult.OK) // Test result.
+                {
+                    testSuiteTreeView.GenerateXmlFile(xmlSaveFileDialog.FileName);
+                }
+            }
 		}
         private void ExitToolStripMenuItemClick(object sender, EventArgs e)
         {

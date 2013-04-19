@@ -37,7 +37,11 @@ namespace TestLink2Excel.Controls
             suiteTreeView.EndUpdate();
 		}
 
-        public void GenerateExcelFile(string path)
+        /// <summary>
+        /// Show Dialog to select suites and make xlsx file with them.
+        /// </summary>
+        /// <param name="fileName"></param>
+        public void GenerateExcelFile(string fileName)
         {
             SuiteExportChoseForm exportDialog = new SuiteExportChoseForm(suiteTreeView.Nodes);
             exportDialog.ShowDialog();
@@ -45,13 +49,33 @@ namespace TestLink2Excel.Controls
             {
 
                 List<TestSuite> suites = makeSuiteList(exportDialog.Nodes);
-                ExcelWriter file = new ExcelWriter(path);
+                ExcelWriter file = new ExcelWriter(fileName);
                 foreach (TestSuite suite in suites)
                 {
                     file.generateSuiteSheet(suite);
                 } 
                 file.Save();
                 file.Close();
+            }
+        }
+
+        /// <summary>
+        /// Show Dialog to select suites and make xml file with them.
+        /// </summary>
+        /// <param name="fileName"></param>
+        public void GenerateXmlFile(string fileName)
+        {
+            SuiteExportChoseForm exportDialog = new SuiteExportChoseForm(suiteTreeView.Nodes);
+            exportDialog.ShowDialog();
+            if (exportDialog.Result == DialogResult.OK)
+            {
+                List<TestSuite> suites = makeSuiteList(exportDialog.Nodes);
+                XMLSuite xml = new XMLSuite();
+                foreach (TestSuite suite in suites)
+                {
+                    xml.AddSuite(suite);
+                }
+                xml.saveAs(fileName);
             }
         }
 
@@ -262,5 +286,6 @@ namespace TestLink2Excel.Controls
             }
         }
         #endregion
-    }
+
+	}
 }
