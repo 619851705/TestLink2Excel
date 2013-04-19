@@ -23,9 +23,11 @@ namespace TestLink2Excel.Controls
         }
 		#endregion
 
+        #region Properties
         public event TreeViewEventHandler suiteNodeClickedEvent;
         public event TreeViewEventHandler caseNodeClickedEvent;
         public int Count { get { return suiteTreeView.Nodes.Count; } }
+        #endregion
 
         #region Public methodes
 

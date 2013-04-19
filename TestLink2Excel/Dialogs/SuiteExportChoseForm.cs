@@ -30,12 +30,15 @@ namespace TestLink2Excel.Dialogs
         }
 
         #endregion
+
         #region Properties
 
         public DialogResult Result { get; set; }
         public TreeNodeCollection Nodes { get { return treeView.Nodes; } }
 
         #endregion
+
+        #region Event handlers
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -54,17 +57,22 @@ namespace TestLink2Excel.Dialogs
             if (e.Node.Nodes.Count > 0 && e.Action == TreeViewAction.ByMouse)
             {
                 checkAllNodes(e.Node, e.Node.Checked);
-                if (e.Node.Checked == true) checkParentNode(e.Node);
+            }
+            if (e.Node.Checked == true && e.Action == TreeViewAction.ByMouse)
+            {
+                checkParentNode(e.Node);
             }
         }
+        #endregion
 
+        #region Private methodes
         private void checkParentNode(TreeNode treeNode)
         {
             
             if (treeNode.Parent != null && treeNode.Parent.Checked == false)
             {
                 treeNode.Parent.Checked = true;
-                checkParentNode(treeNode);
+                checkParentNode(treeNode.Parent);
             }
         }
 
@@ -79,5 +87,6 @@ namespace TestLink2Excel.Dialogs
                 }
             }
         }
+        #endregion
     }
 }

@@ -121,6 +121,15 @@ namespace TestLink2Excel.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to XML suite file (*.xml)|*.xml|All files (*.*)|*.*.
+        /// </summary>
+        internal static string FileDialogXmlFileFilter {
+            get {
+                return ResourceManager.GetString("FileDialogXmlFileFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap move_down_ico {

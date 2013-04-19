@@ -30,6 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mainSplit = new System.Windows.Forms.SplitContainer();
+            this.testSuiteTreeView = new TestLink2Excel.Controls.TestSuiteTreeView();
+            this.testCaseDetailsForm = new TestLink2Excel.TestCaseDetailsForm();
+            this.testSuiteDetailsForm = new TestLink2Excel.Controls.TestSuiteDetailsForm();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,9 +45,8 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.testSuiteTreeView = new TestLink2Excel.Controls.TestSuiteTreeView();
-            this.testSuiteDetailsForm = new TestLink2Excel.Controls.TestSuiteDetailsForm();
-            this.testCaseDetailsForm = new TestLink2Excel.TestCaseDetailsForm();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplit)).BeginInit();
             this.mainSplit.Panel1.SuspendLayout();
             this.mainSplit.Panel2.SuspendLayout();
@@ -69,6 +71,32 @@
             this.mainSplit.Size = new System.Drawing.Size(922, 451);
             this.mainSplit.SplitterDistance = 245;
             this.mainSplit.TabIndex = 1;
+            // 
+            // testSuiteTreeView
+            // 
+            this.testSuiteTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.testSuiteTreeView.Location = new System.Drawing.Point(0, 0);
+            this.testSuiteTreeView.Name = "testSuiteTreeView";
+            this.testSuiteTreeView.Size = new System.Drawing.Size(245, 451);
+            this.testSuiteTreeView.TabIndex = 0;
+            // 
+            // testCaseDetailsForm
+            // 
+            this.testCaseDetailsForm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.testCaseDetailsForm.Location = new System.Drawing.Point(0, 0);
+            this.testCaseDetailsForm.Name = "testCaseDetailsForm";
+            this.testCaseDetailsForm.Size = new System.Drawing.Size(673, 451);
+            this.testCaseDetailsForm.TabIndex = 1;
+            this.testCaseDetailsForm.Visible = false;
+            // 
+            // testSuiteDetailsForm
+            // 
+            this.testSuiteDetailsForm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.testSuiteDetailsForm.Location = new System.Drawing.Point(0, 0);
+            this.testSuiteDetailsForm.Name = "testSuiteDetailsForm";
+            this.testSuiteDetailsForm.Size = new System.Drawing.Size(673, 451);
+            this.testSuiteDetailsForm.TabIndex = 0;
+            this.testSuiteDetailsForm.Visible = false;
             // 
             // statusStrip1
             // 
@@ -106,7 +134,7 @@
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.openToolStripMenuItem.Text = "&Open...";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItemClick);
             // 
             // saveAsToolStripMenuItem
             // 
@@ -124,7 +152,7 @@
             this.excelSheetToolStripMenuItem.Name = "excelSheetToolStripMenuItem";
             this.excelSheetToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.excelSheetToolStripMenuItem.Text = "Excel sheet...";
-            this.excelSheetToolStripMenuItem.Click += new System.EventHandler(this.excelSheetToolStripMenuItem_Click);
+            this.excelSheetToolStripMenuItem.Click += new System.EventHandler(this.ExcelSheetToolStripMenuItemClick);
             // 
             // testLinkXlsToolStripMenuItem
             // 
@@ -174,31 +202,13 @@
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // testSuiteTreeView
+            // openFileDialog
             // 
-            this.testSuiteTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.testSuiteTreeView.Location = new System.Drawing.Point(0, 0);
-            this.testSuiteTreeView.Name = "testSuiteTreeView";
-            this.testSuiteTreeView.Size = new System.Drawing.Size(245, 451);
-            this.testSuiteTreeView.TabIndex = 0;
+            this.openFileDialog.Filter = "XML suite file (*.xml)|*.xml|All files (*.*)|*.*";
             // 
-            // testSuiteDetailsForm
+            // saveFileDialog
             // 
-            this.testSuiteDetailsForm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.testSuiteDetailsForm.Location = new System.Drawing.Point(0, 0);
-            this.testSuiteDetailsForm.Name = "testSuiteDetailsForm";
-            this.testSuiteDetailsForm.Size = new System.Drawing.Size(673, 451);
-            this.testSuiteDetailsForm.TabIndex = 0;
-            this.testSuiteDetailsForm.Visible = false;
-            // 
-            // testCaseDetailsForm
-            // 
-            this.testCaseDetailsForm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.testCaseDetailsForm.Location = new System.Drawing.Point(0, 0);
-            this.testCaseDetailsForm.Name = "testCaseDetailsForm";
-            this.testCaseDetailsForm.Size = new System.Drawing.Size(673, 451);
-            this.testCaseDetailsForm.TabIndex = 1;
-            this.testCaseDetailsForm.Visible = false;
+            this.saveFileDialog.Filter = "Microsoft Excel Worksheet (*.xlsx)|*.xlsx|All files (*.*)|*.*";
             // 
             // MainForm
             // 
@@ -240,6 +250,8 @@
         private Controls.TestSuiteTreeView testSuiteTreeView;
         private Controls.TestSuiteDetailsForm testSuiteDetailsForm;
         private TestCaseDetailsForm testCaseDetailsForm;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
         
     }
 }

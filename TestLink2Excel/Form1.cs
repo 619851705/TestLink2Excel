@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TestLink2Excel.Model;
+using TestLink2Excel.Properties;
 using TestLink2Excel.Utils;
 
 namespace TestLink2Excel
@@ -24,14 +25,13 @@ namespace TestLink2Excel
         #endregion
 
         #region Event Handlers
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenToolStripMenuItemClick(object sender, EventArgs e)
         {
-			OpenFileDialog dialog = new OpenFileDialog();
-			dialog.Filter = "XML suite file (*.xml)|*.xml|All files (*.*)|*.*";
-			DialogResult result = dialog.ShowDialog();
+
+            DialogResult result = openFileDialog.ShowDialog();
 			if (result == DialogResult.OK) // Test result.
 			{
-			    XMLSuite a = new XMLSuite(dialog.FileName);
+			    XMLSuite a = new XMLSuite(openFileDialog.FileName);
 			    List<TestSuite> suites = a.makeTestSuite();
 			    foreach (TestSuite suite in suites)
 			    {
@@ -41,23 +41,21 @@ namespace TestLink2Excel
 			}
         }
 
-		private void excelSheetToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ExcelSheetToolStripMenuItemClick(object sender, EventArgs e)
 		{
             if (testSuiteTreeView.Count > 0)
             {
-                SaveFileDialog dialog = new SaveFileDialog();
-                dialog.Filter = "Microsoft Excel Worksheet (*.xlsx)|*.xlsx|All files (*.*)|*.*";
-                DialogResult result = dialog.ShowDialog();
+                DialogResult result = saveFileDialog.ShowDialog();
                 if (result == DialogResult.OK) // Test result.
                 {
-                    testSuiteTreeView.generateExcelFile(dialog.FileName);
+                    testSuiteTreeView.generateExcelFile(saveFileDialog.FileName);
                 }
             }
 		}
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //todo 
+            //TODO 
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
