@@ -38,10 +38,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ClosedXML">
-      <HintPath>..\..\..\..\..\Dev tools\libs\Excel\ClosedXML.dll</HintPath>
+      <HintPath>Resources\Lib\ClosedXML.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml">
-      <HintPath>..\..\..\..\..\Dev tools\libs\Excel\DocumentFormat.OpenXml.dll</HintPath>
+      <HintPath>Resources\Lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -74,6 +74,24 @@
     </Compile>
     <Compile Include="Dialogs\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NewCaseDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\NewCaseDialog.Designer.cs">
+      <DependentUpon>NewCaseDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NewStepDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\NewStepDialog.Designer.cs">
+      <DependentUpon>NewStepDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NewSuiteDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\NewSuiteDialog.Designer.cs">
+      <DependentUpon>NewSuiteDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\SuiteExportChoseForm.cs">
       <SubType>Form</SubType>
@@ -108,6 +126,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\NewCaseDialog.resx">
+      <DependentUpon>NewCaseDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\NewStepDialog.resx">
+      <DependentUpon>NewStepDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\NewSuiteDialog.resx">
+      <DependentUpon>NewSuiteDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\SuiteExportChoseForm.resx">
       <DependentUpon>SuiteExportChoseForm.cs</DependentUpon>
