@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -13,6 +9,7 @@ namespace TestLink2Excel.Dialogs
 		public AboutBox()
 		{
 			InitializeComponent();
+
 			this.Text = String.Format("About {0}", AssemblyTitle);
 			this.labelProductName.Text = AssemblyProduct;
 			this.labelCopyright.Text = AssemblyCopyright;

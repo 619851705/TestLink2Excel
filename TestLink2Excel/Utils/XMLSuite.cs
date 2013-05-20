@@ -1,163 +1,175 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Xml;
-using System.Windows.Forms;
 using TestLink2Excel.Model;
 
 namespace TestLink2Excel.Utils
 {
-    public class XMLSuite
-    {
-        private XmlDocument suite;
-        private XmlElement root;
+	public class XMLSuite
+	{
+		private XmlDocument suite;
+		private XmlElement root;
 
-        public XMLSuite(string path)
-        {
-            suite = new XmlDocument();
-            if (!string.IsNullOrEmpty(path))
-            {
-                suite.Load(path);
-            }
-        }
+		public XMLSuite(string path)
+		{
+			suite = new XmlDocument();
 
+			if (!string.IsNullOrEmpty(path))
+				suite.Load(path);
+		}
 
-        public XMLSuite()
-        {
-            this.suite = new XmlDocument();
-            XmlNode n = this.suite.CreateNode(XmlNodeType.XmlDeclaration,"","");
-            this.suite.AppendChild(n);
-            root = this.suite.CreateElement("", "testsuite", "");
-            this.suite.AppendChild(root);
-        }
+		public XMLSuite()
+		{
+			this.suite = new XmlDocument();
+			XmlNode n = this.suite.CreateNode(XmlNodeType.XmlDeclaration, "", "");
+			this.suite.AppendChild(n);
+			this.root = this.suite.CreateElement("", "testsuite", "");
+			this.suite.AppendChild(root);
+		}
 
-        public void AddSuite(TestSuite suite)
-        {
-            var xmlelem = writeSuite(suite);
-            root.AppendChild(xmlelem);
-        }
+		public void AddSuite(TestSuite suite)
+		{
+			var xmlelem = WriteSuite(suite);
+			this.root.AppendChild(xmlelem);
+		}
 
+		public void SaveAs(string path)
+		{
+			this.suite.Save(path);
+		}
 
-        public void saveAs(string path)
-        {
-            this.suite.Save(path);
-        }
+		private XmlNode WriteSuite(TestSuite suite)
+		{
+			XmlElement node = this.suite.CreateElement("", "testsuite", "");
+			node.SetAttribute("name", suite.Name);
 
-        private XmlNode writeSuite(TestSuite suite)
-        {
-            XmlElement node = this.suite.CreateElement("", "testsuite", "");
-            node.SetAttribute("name", suite.Name);
-            foreach (TestCase tc in suite.Tcs)
-            {
-                node.AppendChild(writeTC(tc));
-            }
+			foreach (TestCase tc in suite.Tcs)
+				node.AppendChild(WriteTC(tc));
 
-            foreach (TestSuite s in suite.UnderSuits)
-            {
-                node.AppendChild(writeSuite(s));
-            }
-            return node;
-            
-        }
+			foreach (TestSuite s in suite.UnderSuits)
+				node.AppendChild(WriteSuite(s));
 
-        private XmlNode writeTC(TestCase tc)
-        {
-            XmlElement node = this.suite.CreateElement("", "testcase", "");
-            node.SetAttribute("name", tc.Name);
-            XmlElement externalid = this.suite.CreateElement("", "externalid", "");
-            externalid.AppendChild(this.suite.CreateCDataSection(tc.Id.ToString()));
-            node.AppendChild(externalid);
-            XmlElement summary = this.suite.CreateElement("", "summary", "");
-            summary.AppendChild(this.suite.CreateCDataSection(tc.Summary));
-            node.AppendChild(summary);
-            XmlElement preconditions = this.suite.CreateElement("", "preconditions", "");
-            preconditions.AppendChild(this.suite.CreateCDataSection(tc.Preconditions));
-            node.AppendChild(preconditions);
-            if (tc.Steps.Count > 0)
-            {
-                XmlElement steps = this.suite.CreateElement("", "steps", "");
-                foreach (Step step in tc.Steps)
-                {
-                    steps.AppendChild(writeStep(step));
-                }
-                node.AppendChild(steps);
-            }
-            return node;
-        }
+			return node;
+		}
 
-        private XmlNode writeStep(Step step)
-        {
-            XmlElement node = this.suite.CreateElement("", "step", "");
-            XmlElement stepNumber = this.suite.CreateElement("", "step_number", "");
-            stepNumber.AppendChild(this.suite.CreateCDataSection(step.StepNumber.ToString()));
-            node.AppendChild(stepNumber);
-            XmlElement actions = this.suite.CreateElement("", "actions", "");
-            actions.AppendChild(this.suite.CreateCDataSection(step.Action));
-            node.AppendChild(actions);
-            XmlElement expectedresults = this.suite.CreateElement("", "expectedresults", "");
-            expectedresults.AppendChild(this.suite.CreateCDataSection(step.ExpectedResult));
-            node.AppendChild(expectedresults);
-            return node;
-        }
+		private XmlNode WriteTC(TestCase tc)
+		{
+			XmlElement node = this.suite.CreateElement("", "testcase", "");
+			node.SetAttribute("name", tc.Name);
+			XmlElement externalid = this.suite.CreateElement("", "externalid", "");
+			externalid.AppendChild(this.suite.CreateCDataSection(tc.Id.ToString()));
+			node.AppendChild(externalid);
+			XmlElement summary = this.suite.CreateElement("", "summary", "");
+			summary.AppendChild(this.suite.CreateCDataSection(tc.Summary));
+			node.AppendChild(summary);
+			XmlElement preconditions = this.suite.CreateElement("", "preconditions", "");
+			preconditions.AppendChild(this.suite.CreateCDataSection(tc.Preconditions));
+			node.AppendChild(preconditions);
 
-        public List<TestSuite> makeTestSuite()
-        {
-            List<TestSuite> suite = new List<TestSuite>();
-            foreach (XmlNode node in this.suite.ChildNodes)
-            {
-                if (node.Name == "testsuite") suite.Add(addSuite(node));
-            }
-            return suite;
-        }
+			if (tc.Steps.Count > 0)
+			{
+				XmlElement steps = this.suite.CreateElement("", "steps", "");
 
-        private TestSuite addSuite(XmlNode node)
-        {
-            string name = node.Attributes[0].InnerText != null && node.Attributes[0].InnerText != string.Empty ? node.Attributes[0].InnerText : "<<Test Suite>>";
-            TestSuite suite = new TestSuite(name, string.Empty);
-            foreach (XmlNode n in node.ChildNodes)
-            {
-                if (n.Name == "testsuite") suite.UnderSuits.Add(addSuite(n));
-                else if (n.Name == "testcase") suite.addTestCase(addCase(n));
-                else if (n.Name == "details") suite.Description = n.Value;
-            }
-            return suite;
-        }
+				foreach (Step step in tc.Steps)
+					steps.AppendChild(WriteStep(step));
 
-        private TestCase addCase(XmlNode node)
-        {
-            TestCase testCase = new TestCase(node.Attributes[1].InnerText);
-            foreach (XmlNode n in node.ChildNodes)
-            {
-                if (n.Name == "preconditions") testCase.Preconditions = n.InnerText;
-                else if (n.Name == "summary") testCase.Summary = n.InnerText;
-                else if (n.Name == "externalid") testCase.Id = int.Parse(n.InnerText);
-                else if (n.Name == "steps") testCase.Steps = addSteps(n);
-            }
-            return testCase;
-        }
+				node.AppendChild(steps);
+			}
 
-        private List<Step> addSteps(XmlNode node)
-        {
-            List<Step> steps = new List<Step>();
-            foreach (XmlNode n in node.ChildNodes)
-            {
-                Step step = addStep(n);
-                steps.Add(step);
-            }
-            return steps;
-        }
+			return node;
+		}
 
-        private Step addStep(XmlNode node)
-        {
-            Step step = new Step();
-            foreach (XmlNode n in node.ChildNodes)
-            {
-                if (n.Name == "step_number") step.StepNumber = int.Parse(n.InnerText);
-                else if (n.Name == "actions") step.Action = n.InnerText;
-                else if (n.Name == "expectedresults") step.ExpectedResult = n.InnerText;
-            }
-            return step;
-        }
-    }
+		private XmlNode WriteStep(Step step)
+		{
+			XmlElement node = this.suite.CreateElement("", "step", "");
+			XmlElement stepNumber = this.suite.CreateElement("", "step_number", "");
+			stepNumber.AppendChild(this.suite.CreateCDataSection(step.StepNumber.ToString()));
+			node.AppendChild(stepNumber);
+			XmlElement actions = this.suite.CreateElement("", "actions", "");
+			actions.AppendChild(this.suite.CreateCDataSection(step.Action));
+			node.AppendChild(actions);
+			XmlElement expectedresults = this.suite.CreateElement("", "expectedresults", "");
+			expectedresults.AppendChild(this.suite.CreateCDataSection(step.ExpectedResult));
+			node.AppendChild(expectedresults);
+
+			return node;
+		}
+
+		public List<TestSuite> MakeTestSuite()
+		{
+			List<TestSuite> suite = new List<TestSuite>();
+
+			foreach (XmlNode node in this.suite.ChildNodes)
+				if (node.Name == "testsuite")
+					suite.Add(AddSuite(node));
+
+			return suite;
+		}
+
+		private TestSuite AddSuite(XmlNode node)
+		{
+			string name = node.Attributes.Count > 0 && node.Attributes[0].InnerText != null && node.Attributes[0].InnerText != string.Empty ? node.Attributes[0].InnerText : "<<Test Suite>>";
+			TestSuite suite = new TestSuite(name, string.Empty);
+
+			foreach (XmlNode n in node.ChildNodes)
+			{
+				if (n.Name == "testsuite")
+					suite.UnderSuits.Add(AddSuite(n));
+				else if (n.Name == "testcase")
+					suite.AddTestCase(AddCase(n));
+				else if (n.Name == "details")
+					suite.Description = n.Value;
+			}
+
+			return suite;
+		}
+
+		private TestCase AddCase(XmlNode node)
+		{
+			TestCase testCase = new TestCase(node.Attributes[1].InnerText);
+
+			foreach (XmlNode n in node.ChildNodes)
+			{
+				if (n.Name == "preconditions")
+					testCase.Preconditions = n.InnerText;
+				else if (n.Name == "summary")
+					testCase.Summary = n.InnerText;
+				else if (n.Name == "externalid")
+					testCase.Id = int.Parse(n.InnerText);
+				else if (n.Name == "steps")
+					testCase.Steps = AddSteps(n);
+			}
+
+			return testCase;
+		}
+
+		private List<Step> AddSteps(XmlNode node)
+		{
+			List<Step> steps = new List<Step>();
+
+			foreach (XmlNode n in node.ChildNodes)
+			{
+				Step step = AddStep(n);
+				steps.Add(step);
+			}
+
+			return steps;
+		}
+
+		private Step AddStep(XmlNode node)
+		{
+			Step step = new Step();
+
+			foreach (XmlNode n in node.ChildNodes)
+			{
+				if (n.Name == "step_number")
+					step.StepNumber = int.Parse(n.InnerText);
+				else if (n.Name == "actions")
+					step.Action = n.InnerText;
+				else if (n.Name == "expectedresults")
+					step.ExpectedResult = n.InnerText;
+			}
+
+			return step;
+		}
+	}
 }

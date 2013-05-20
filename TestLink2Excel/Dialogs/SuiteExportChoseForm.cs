@@ -1,92 +1,72 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace TestLink2Excel.Dialogs
 {
 	public partial class SuiteExportChoseForm : Form
-    {
-        #region Constructors
-        public SuiteExportChoseForm()
+	{
+		#region Constructors
+
+		public SuiteExportChoseForm()
 		{
 			InitializeComponent();
 		}
 
-        public SuiteExportChoseForm(TreeNodeCollection treeNodeCollection)
-        {
-            InitializeComponent();
-            treeView.Nodes.Clear();
-            foreach (TreeNode node in treeNodeCollection)
-            {
-                    TreeNode n = node.Clone() as TreeNode;
-                    treeView.Nodes.Add(n);
-            }
-        }
+		public SuiteExportChoseForm(TreeNodeCollection treeNodeCollection)
+		{
+			InitializeComponent();
+			treeView.Nodes.Clear();
 
-        #endregion
+			foreach (TreeNode node in treeNodeCollection)
+			{
+				TreeNode n = node.Clone() as TreeNode;
+				treeView.Nodes.Add(n);
+			}
+		}
 
-        #region Properties
+		#endregion
 
-        public DialogResult Result { get; set; }
-        public TreeNodeCollection Nodes { get { return treeView.Nodes; } }
+		#region Properties
 
-        #endregion
+		public DialogResult Result { get; set; }
+		public TreeNodeCollection Nodes { get { return treeView.Nodes; } }
 
-        #region Event handlers
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            Result = DialogResult.Cancel;
-        }
+		#endregion
 
-        private void okButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            Result = DialogResult.OK;
-        }
+		#region Event handlers
 
-        private void treeView_AfterCheck(object sender, TreeViewEventArgs e)
-        {
+		private void treeView_AfterCheck(object sender, TreeViewEventArgs e)
+		{
+			if (e.Node.Nodes.Count > 0 && e.Action == TreeViewAction.ByMouse)
+				checkAllNodes(e.Node, e.Node.Checked);
 
-            if (e.Node.Nodes.Count > 0 && e.Action == TreeViewAction.ByMouse)
-            {
-                checkAllNodes(e.Node, e.Node.Checked);
-            }
-            if (e.Node.Checked == true && e.Action == TreeViewAction.ByMouse)
-            {
-                checkParentNode(e.Node);
-            }
-        }
-        #endregion
+			if (e.Node.Checked == true && e.Action == TreeViewAction.ByMouse)
+				CheckParentNode(e.Node);
+		}
 
-        #region Private methodes
-        private void checkParentNode(TreeNode treeNode)
-        {
-            
-            if (treeNode.Parent != null && treeNode.Parent.Checked == false)
-            {
-                treeNode.Parent.Checked = true;
-                checkParentNode(treeNode.Parent);
-            }
-        }
+		#endregion
 
-        private void checkAllNodes(TreeNode treeNode, bool nodeChecked)
-        {
-            foreach(TreeNode node in treeNode.Nodes)
-             {
-                node.Checked = nodeChecked;
-                if(node.Nodes.Count > 0)
-                {
-                    checkAllNodes(node, nodeChecked);
-                }
-            }
-        }
-        #endregion
-    }
+		#region Private methodes
+
+		private void CheckParentNode(TreeNode treeNode)
+		{
+			if (treeNode.Parent != null && treeNode.Parent.Checked == false)
+			{
+				treeNode.Parent.Checked = true;
+				this.CheckParentNode(treeNode.Parent);
+			}
+		}
+
+		private void checkAllNodes(TreeNode treeNode, bool nodeChecked)
+		{
+			foreach (TreeNode node in treeNode.Nodes)
+			{
+				node.Checked = nodeChecked;
+				if (node.Nodes.Count > 0)
+					checkAllNodes(node, nodeChecked);
+			}
+		}
+
+		#endregion
+	}
 }
