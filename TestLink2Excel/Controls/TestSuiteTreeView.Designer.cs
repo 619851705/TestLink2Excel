@@ -43,8 +43,6 @@
             this.pasteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.deleteToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.treeContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.folderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.caseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hereIWantButtonsFromToolBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newCaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -54,6 +52,8 @@
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.folderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.caseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip.SuspendLayout();
             this.treeContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -111,6 +111,7 @@
             this.newNodeToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.newNodeToolStripButton.Text = "New Suite Folder";
             this.newNodeToolStripButton.ToolTipText = "New Folder";
+            this.newNodeToolStripButton.Click += new System.EventHandler(this.newNodeToolStripButton_Click);
             // 
             // newTestCaseToolStripButton
             // 
@@ -121,6 +122,7 @@
             this.newTestCaseToolStripButton.Name = "newTestCaseToolStripButton";
             this.newTestCaseToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.newTestCaseToolStripButton.Text = "New Test Case";
+            this.newTestCaseToolStripButton.Click += new System.EventHandler(this.newCaseToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -137,6 +139,7 @@
             this.moveUpToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.moveUpToolStripButton.Text = "moveUpToolStripButton";
             this.moveUpToolStripButton.ToolTipText = "Move Up";
+            this.moveUpToolStripButton.Click += new System.EventHandler(this.moveUpToolStripMenuItem_Click);
             // 
             // moveDownToolStripButton
             // 
@@ -148,6 +151,7 @@
             this.moveDownToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.moveDownToolStripButton.Text = "moveDownToolStripButton";
             this.moveDownToolStripButton.ToolTipText = "Move Down";
+            this.moveDownToolStripButton.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -164,6 +168,7 @@
             this.copyToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.copyToolStripButton.Text = "copyToolStripButton";
             this.copyToolStripButton.ToolTipText = "Copy";
+            this.copyToolStripButton.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
             // pasteToolStripButton
             // 
@@ -175,6 +180,7 @@
             this.pasteToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.pasteToolStripButton.Text = "pasteToolStripButton";
             this.pasteToolStripButton.ToolTipText = "Paste";
+            this.pasteToolStripButton.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // deleteToolStripButton
             // 
@@ -186,6 +192,7 @@
             this.deleteToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.deleteToolStripButton.Text = "deleteToolStripButton";
             this.deleteToolStripButton.ToolTipText = "Delete";
+            this.deleteToolStripButton.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // treeContextMenuStrip
             // 
@@ -200,7 +207,73 @@
             this.pasteToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.treeContextMenuStrip.Name = "treeContextMenuStrip";
-            this.treeContextMenuStrip.Size = new System.Drawing.Size(153, 192);
+            this.treeContextMenuStrip.Size = new System.Drawing.Size(139, 170);
+            // 
+            // hereIWantButtonsFromToolBarToolStripMenuItem
+            // 
+            this.hereIWantButtonsFromToolBarToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.add_folder_ico;
+            this.hereIWantButtonsFromToolBarToolStripMenuItem.Name = "hereIWantButtonsFromToolBarToolStripMenuItem";
+            this.hereIWantButtonsFromToolBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.hereIWantButtonsFromToolBarToolStripMenuItem.Text = "New Folder";
+            this.hereIWantButtonsFromToolBarToolStripMenuItem.Click += new System.EventHandler(this.newNodeToolStripButton_Click);
+            // 
+            // newCaseToolStripMenuItem
+            // 
+            this.newCaseToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.add_note;
+            this.newCaseToolStripMenuItem.Name = "newCaseToolStripMenuItem";
+            this.newCaseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newCaseToolStripMenuItem.Text = "New Case";
+            this.newCaseToolStripMenuItem.Click += new System.EventHandler(this.newCaseToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(135, 6);
+            // 
+            // moveUpToolStripMenuItem
+            // 
+            this.moveUpToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.move_up_ico;
+            this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
+            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.moveUpToolStripMenuItem.Text = "Move Up";
+            this.moveUpToolStripMenuItem.Click += new System.EventHandler(this.moveUpToolStripMenuItem_Click);
+            // 
+            // moveDownToolStripMenuItem
+            // 
+            this.moveDownToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.move_down_ico;
+            this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
+            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.moveDownToolStripMenuItem.Text = "Move Down";
+            this.moveDownToolStripMenuItem.Click += new System.EventHandler(this.moveDownToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(135, 6);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.copy_ico;
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
+            // pasteToolStripMenuItem
+            // 
+            this.pasteToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.paste_ico;
+            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pasteToolStripMenuItem.Text = "Paste";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.delete_co;
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // folderToolStripMenuItem
             // 
@@ -213,65 +286,6 @@
             this.caseToolStripMenuItem.Name = "caseToolStripMenuItem";
             this.caseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.caseToolStripMenuItem.Text = "Case";
-            // 
-            // hereIWantButtonsFromToolBarToolStripMenuItem
-            // 
-            this.hereIWantButtonsFromToolBarToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.add_folder_ico;
-            this.hereIWantButtonsFromToolBarToolStripMenuItem.Name = "hereIWantButtonsFromToolBarToolStripMenuItem";
-            this.hereIWantButtonsFromToolBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.hereIWantButtonsFromToolBarToolStripMenuItem.Text = "New Folder";
-            // 
-            // newCaseToolStripMenuItem
-            // 
-            this.newCaseToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.add_note;
-            this.newCaseToolStripMenuItem.Name = "newCaseToolStripMenuItem";
-            this.newCaseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.newCaseToolStripMenuItem.Text = "New Case";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
-            // 
-            // moveUpToolStripMenuItem
-            // 
-            this.moveUpToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.move_up_ico;
-            this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
-            this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.moveUpToolStripMenuItem.Text = "Move Up";
-            // 
-            // moveDownToolStripMenuItem
-            // 
-            this.moveDownToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.move_down_ico;
-            this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
-            this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.moveDownToolStripMenuItem.Text = "Move Down";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
-            // 
-            // copyToolStripMenuItem
-            // 
-            this.copyToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.copy_ico;
-            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.copyToolStripMenuItem.Text = "Copy";
-            // 
-            // pasteToolStripMenuItem
-            // 
-            this.pasteToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.paste_ico;
-            this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.pasteToolStripMenuItem.Text = "Paste";
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.delete_co;
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
             // 
             // TestSuiteTreeView
             // 

@@ -285,7 +285,42 @@ namespace TestLink2Excel.Controls
                 treeContextMenuStrip.Show(Cursor.Position);
             }
         }
-        #endregion
 
-	}
+
+        private void newNodeToolStripButton_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void newCaseToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void moveUpToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void moveDownToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void pasteToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+
+        }
+        #endregion
+    }
 }
