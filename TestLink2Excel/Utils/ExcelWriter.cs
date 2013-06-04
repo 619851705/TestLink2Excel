@@ -62,7 +62,7 @@ namespace TestLink2Excel.Utils
 
 				sheet.Cell(row, cats.Count + 1).Value = suite.Name;
 				sheet.Cell(row, deep + 1).Value = testCase.Name;
-				sheet.Cell(row, deep + 2).Value = testCase.Id;
+				sheet.Cell(row, deep + 2).Value = testCase.ExternalId;
 				sheet.Cell(row, deep + 3).Value = testCase.Summary;
 				sheet.Cell(row, deep + 4).Value = testCase.Preconditions;
 				string actions = string.Empty;

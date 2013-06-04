@@ -69,7 +69,7 @@
 			this.btnTestSuiteCancel.Name = "btnTestSuiteCancel";
 			this.btnTestSuiteCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnTestSuiteCancel.TabIndex = 1;
-			this.btnTestSuiteCancel.Text = "Cancel";
+			this.btnTestSuiteCancel.Text = "Reload";
 			this.btnTestSuiteCancel.UseVisualStyleBackColor = true;
 			this.btnTestSuiteCancel.Click += new System.EventHandler(this.TestSuiteCancelButton_Click);
 			// 
@@ -106,6 +106,7 @@
 			this.txtTestSuiteSummary.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.txtTestSuiteSummary.Size = new System.Drawing.Size(544, 69);
 			this.txtTestSuiteSummary.TabIndex = 3;
+			this.txtTestSuiteSummary.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTestSuiteSummary_KeyDown);
 			// 
 			// lblTestSuiteSummary
 			// 

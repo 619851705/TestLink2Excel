@@ -62,7 +62,10 @@ namespace TestLink2Excel
 		private void NewToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			if (this.testSuiteTreeView.Count == 0)
+			{
+				this.testSuiteTreeView.EnableToolStripButtons();
 				return;
+			}
 
 			DialogResult result = MessageBox.Show(Messages.AreYouSure, WindowsNames.Confirmation, MessageBoxButtons.OKCancel);
 

@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using TestLink2Excel.Dialogs;
+using TestLink2Excel.Helper;
 using TestLink2Excel.Model;
 using TestLink2Excel.Utils;
 
@@ -10,6 +13,8 @@ namespace TestLink2Excel.Controls
 	public partial class TestSuiteTreeView : UserControl
 	{
 		private TreeNode copiedNode;
+		private TreeNode dragNode;
+		private TreeNode tempDropNode;
 
 		#region Constructors
 
@@ -48,9 +53,9 @@ namespace TestLink2Excel.Controls
 		public void GenerateExcelFile(string fileName)
 		{
 			SuiteExportChoseForm exportDialog = new SuiteExportChoseForm(this.suiteTreeView.Nodes);
-			
+			exportDialog.ShowDialog();
 
-            if (exportDialog.ShowDialog() == DialogResult.OK)
+			if (exportDialog.Result == DialogResult.OK)
 			{
 				List<TestSuite> suites = this.MakeSuiteList(exportDialog.Nodes);
 				ExcelWriter file = new ExcelWriter(fileName);
@@ -74,12 +79,16 @@ namespace TestLink2Excel.Controls
 			if (exportDialog.ShowDialog() == DialogResult.OK)
 			{
 				List<TestSuite> suites = this.MakeSuiteList(exportDialog.Nodes);
-				XMLSuite xml = new XMLSuite();
 
-				foreach (TestSuite suite in suites)
-					xml.AddSuite(suite);
+				for (int i = 0; i < suites.Count; i++)
+				{
+					XMLSuite xml = new XMLSuite(suites[i]);
 
-				xml.SaveAs(fileName);
+					//foreach (TestSuite suite in suites)
+					//	xml.AddSuite(suite);
+
+					xml.SaveAs(Path.GetDirectoryName(fileName)+'\\' + Path.GetFileNameWithoutExtension(fileName) + i+".xml");
+				}
 			}
 		}
 
@@ -109,7 +118,7 @@ namespace TestLink2Excel.Controls
 				if (suiteTag != null && suiteTag.Equals(suite))
 				{
 					this.suiteTreeView.BeginUpdate();
-					node.Text = node.Text = (node.Tag as TestSuite).Name;
+					node.Text =  (node.Tag as TestSuite).VisibleName;
 					this.suiteTreeView.EndUpdate();
 				}
 				else if (node.Nodes.Count > 0)
@@ -174,7 +183,7 @@ namespace TestLink2Excel.Controls
 		private TreeNode MakeSuiteTree(TestSuite suite)
 		{
 			TreeNode node = new TreeNode();
-			node.Text = suite.Name;
+			node.Text = suite.VisibleName;
 			node.Tag = suite;
 			suite.PropertyChanged += new PropertyChangedEventHandler(Suite_PropertyChanged);
 
@@ -216,7 +225,7 @@ namespace TestLink2Excel.Controls
 		private TestSuite MakeSuite(TreeNode node)
 		{
 			TestSuite suite = new TestSuite((node.Tag as TestSuite).Name, (node.Tag as TestSuite).Description);
-
+			
 			foreach (TreeNode n in node.Nodes)
 			{
 				if (n.Nodes.Count > 0 && n.Checked == true)
@@ -262,6 +271,17 @@ namespace TestLink2Excel.Controls
 			this.deleteToolStripButton.Enabled = true;
 		}
 
+		public void EnableToolStripButtons()
+		{
+			foreach (ToolStripItem item in toolStrip.Items)
+			{
+				ToolStripButton button = item as ToolStripButton;
+
+				if (button != null && !button.Equals(this.pasteToolStripButton))
+					button.Enabled = true;
+			}
+		}
+
 		private void SuiteNodeClicked(object sender, TreeViewEventArgs e)
 		{
 			if (this.SuiteNodeClickedEvent != null)
@@ -272,6 +292,49 @@ namespace TestLink2Excel.Controls
 		{
 			if (this.CaseNodeClickedEvent != null)
 				this.CaseNodeClickedEvent(sender, e);
+		}
+
+		private TestSuite CloneSuite(TreeNode testSuite)
+		{
+			TestSuite originalSuite = testSuite.Tag as TestSuite;
+			TestSuite clonedSuite = new TestSuite(originalSuite.Name, originalSuite.Description);
+
+			clonedSuite.UnderSuits = new List<TestSuite>();
+			clonedSuite.Tcs = new List<TestCase>();
+
+
+			if (testSuite.Nodes != null)
+			{
+				foreach (TreeNode node in testSuite.Nodes)
+				{
+					if (node.Tag is TestCase)
+						node.Tag = this.CloneCase(node);
+					else if (this.copiedNode.Tag is TestSuite)
+						node.Tag = this.CloneSuite(node);
+				}
+			}
+
+			clonedSuite.PropertyChanged += new PropertyChangedEventHandler(Suite_PropertyChanged);
+
+			return clonedSuite;
+		}
+
+		private TestCase CloneCase(TreeNode node)
+		{
+			TestCase originalCase = node.Tag as TestCase;
+			TestCase cloneCase = new TestCase(originalCase.Name);
+			cloneCase.ExternalId = originalCase.ExternalId;
+			cloneCase.Preconditions = originalCase.Preconditions;
+			cloneCase.Summary = originalCase.Summary;
+
+			cloneCase.Steps = new List<Step>();
+
+			foreach (Step step in originalCase.Steps)
+				cloneCase.Steps.Add(new Step() { Action = step.Action, ExpectedResult = step.ExpectedResult, StepNumber = step.StepNumber });
+
+			cloneCase.PropertyChanged += new PropertyChangedEventHandler(TestCase_PropertyChanged);
+
+			return cloneCase;
 		}
 
 		#endregion
@@ -357,13 +420,45 @@ namespace TestLink2Excel.Controls
 		private void moveUpToolStripButton_Click(object sender, System.EventArgs e)
 		{
 			if (this.suiteTreeView.SelectedNode.PrevNode != null)
-				this.suiteTreeView.SelectedNode = this.suiteTreeView.SelectedNode.PrevNode;
+			{
+				this.suiteTreeView.BeginUpdate();
+				int prev = this.suiteTreeView.SelectedNode.PrevNode.Index;
+				int current = this.suiteTreeView.SelectedNode.Index;
+				TreeNode parent = this.suiteTreeView.SelectedNode.Parent;
+				TreeNode temp = parent.Nodes[prev];
+				parent.Nodes.Remove(temp);
+				parent.Nodes.Insert(current, temp);
+
+				if (this.suiteTreeView.SelectedNode.PrevNode == null)
+					this.moveUpToolStripButton.Enabled = false;
+
+				if (this.suiteTreeView.SelectedNode.NextNode != null)
+					this.moveDownToolStripButton.Enabled = true;
+
+				this.suiteTreeView.EndUpdate();
+			}
 		}
 
 		private void moveDownToolStripButton_Click(object sender, System.EventArgs e)
 		{
 			if (this.suiteTreeView.SelectedNode.NextNode != null)
-				this.suiteTreeView.SelectedNode = this.suiteTreeView.SelectedNode.NextNode;
+			{
+				this.suiteTreeView.BeginUpdate();
+				int nxt = this.suiteTreeView.SelectedNode.NextNode.Index;
+				int current = this.suiteTreeView.SelectedNode.Index;
+				TreeNode parent = this.suiteTreeView.SelectedNode.Parent;
+				TreeNode temp = parent.Nodes[nxt];
+				parent.Nodes.Remove(temp);
+				parent.Nodes.Insert(current, temp);
+
+				if (this.suiteTreeView.SelectedNode.NextNode == null)
+					this.moveDownToolStripButton.Enabled = false;
+
+				if (this.suiteTreeView.SelectedNode.PrevNode != null)
+					this.moveUpToolStripButton.Enabled = true;
+
+				this.suiteTreeView.EndUpdate();
+			}
 		}
 
 		private void deleteToolStripButton_Click(object sender, System.EventArgs e)
@@ -371,8 +466,6 @@ namespace TestLink2Excel.Controls
 			if (this.suiteTreeView.SelectedNode != null)
 				this.suiteTreeView.SelectedNode.Remove();
 		}
-
-		#endregion
 
 		private void pasteToolStripButton_Click(object sender, System.EventArgs e)
 		{
@@ -396,7 +489,157 @@ namespace TestLink2Excel.Controls
 		{
 			this.copiedNode = (TreeNode)this.suiteTreeView.SelectedNode.Clone();
 
+			if (this.copiedNode.Tag is TestCase)
+			{
+				this.copiedNode.Tag = this.CloneCase(this.copiedNode);
+			}
+			else if (this.copiedNode.Tag is TestSuite)
+			{
+				this.copiedNode.Tag = this.CloneSuite(this.copiedNode);
+			}
+
 			this.pasteToolStripButton.Enabled = this.pasteToolStripMenuItem.Enabled = this.copiedNode != null;
 		}
+
+		private void suiteTreeView_ItemDrag(object sender, ItemDragEventArgs e)
+		{
+			this.dragNode = (TreeNode)e.Item;
+			this.suiteTreeView.SelectedNode = this.dragNode;
+
+			this.imageListDrag.Images.Clear();
+			this.imageListDrag.ImageSize = new Size(this.dragNode.Bounds.Size.Width + this.suiteTreeView.Indent, this.dragNode.Bounds.Height);
+
+			Bitmap bmp = new Bitmap(this.dragNode.Bounds.Width + this.suiteTreeView.Indent, this.dragNode.Bounds.Height);
+			Graphics gfx = Graphics.FromImage(bmp);
+
+			gfx.DrawImage(this.treeViewImages.Images[0], 0, 0);
+			gfx.DrawString(this.dragNode.Text, this.suiteTreeView.Font, new SolidBrush(this.suiteTreeView.ForeColor), (float)this.suiteTreeView.Indent, 1.0f);
+
+			this.imageListDrag.Images.Add(bmp);
+
+			Point p = this.suiteTreeView.PointToClient(Control.MousePosition);
+
+			int dx = p.X + this.suiteTreeView.Indent - this.dragNode.Bounds.Left;
+			int dy = p.Y - this.dragNode.Bounds.Top;
+
+			if (DragHelper.ImageList_BeginDrag(this.imageListDrag.Handle, 0, dx, dy))
+			{
+				this.suiteTreeView.DoDragDrop(bmp, DragDropEffects.Move);
+				DragHelper.ImageList_EndDrag();
+			}
+		}
+
+		private void suiteTreeView_DragOver(object sender, DragEventArgs e)
+		{
+			Point formP = this.PointToClient(new Point(e.X, e.Y));
+			DragHelper.ImageList_DragMove(formP.X - this.suiteTreeView.Left, formP.Y - this.suiteTreeView.Top);
+			TreeNode dropNode = this.suiteTreeView.GetNodeAt(this.suiteTreeView.PointToClient(new Point(e.X, e.Y)));
+
+			if (dropNode == null)
+			{
+				e.Effect = DragDropEffects.None;
+				return;
+			}
+
+			e.Effect = DragDropEffects.Move;
+
+			if (this.tempDropNode != dropNode)
+			{
+				DragHelper.ImageList_DragShowNolock(false);
+				this.suiteTreeView.SelectedNode = dropNode;
+				DragHelper.ImageList_DragShowNolock(true);
+				tempDropNode = dropNode;
+			}
+
+			TreeNode tmpNode = dropNode;
+
+			while (tmpNode.Parent != null)
+			{
+				if (tmpNode.Parent == this.dragNode)
+					e.Effect = DragDropEffects.None;
+
+				tmpNode = tmpNode.Parent;
+			}
+		}
+
+		private void suiteTreeView_DragDrop(object sender, DragEventArgs e)
+		{
+			DragHelper.ImageList_DragLeave(this.suiteTreeView.Handle);
+			TreeNode dropNode = this.suiteTreeView.GetNodeAt(this.suiteTreeView.PointToClient(new Point(e.X, e.Y)));
+
+			if (this.dragNode != dropNode && dropNode.Tag is TestSuite)
+			{
+				if (this.dragNode.Parent == null)
+					this.suiteTreeView.Nodes.Remove(this.dragNode);
+				else
+					this.dragNode.Parent.Nodes.Remove(this.dragNode);
+
+				dropNode.Nodes.Add(this.dragNode);
+				dropNode.ExpandAll();
+
+				this.dragNode = null;
+				this.timer.Enabled = false;
+			}
+		}
+
+		private void suiteTreeView_DragEnter(object sender, DragEventArgs e)
+		{
+			DragHelper.ImageList_DragEnter(this.suiteTreeView.Handle, e.X - this.suiteTreeView.Left, e.Y - this.suiteTreeView.Top);
+
+			this.timer.Enabled = true;
+		}
+
+		private void suiteTreeView_DragLeave(object sender, System.EventArgs e)
+		{
+			DragHelper.ImageList_DragLeave(this.suiteTreeView.Handle);
+
+			this.timer.Enabled = false;
+		}
+
+		private void suiteTreeView_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+		{
+			if (e.Effect == DragDropEffects.Move)
+			{
+				e.UseDefaultCursors = false;
+				this.suiteTreeView.Cursor = Cursors.Default;
+			}
+			else
+				e.UseDefaultCursors = true;
+		}
+
+		private void timer_Tick(object sender, System.EventArgs e)
+		{
+			Point pt = PointToClient(Control.MousePosition);
+			TreeNode node = this.suiteTreeView.GetNodeAt(pt);
+
+			if (node == null)
+				return;
+
+			if (pt.Y < 30)
+			{
+				if (node.PrevVisibleNode != null)
+				{
+					node = node.PrevVisibleNode;
+					DragHelper.ImageList_DragShowNolock(false);
+					node.EnsureVisible();
+					this.suiteTreeView.Refresh();
+					DragHelper.ImageList_DragShowNolock(true);
+				}
+			}
+			else if (pt.Y > this.suiteTreeView.Size.Height - 30)
+			{
+				if (node.NextVisibleNode != null)
+				{
+					node = node.NextVisibleNode;
+
+					DragHelper.ImageList_DragShowNolock(false);
+					node.EnsureVisible();
+					this.suiteTreeView.Refresh();
+					DragHelper.ImageList_DragShowNolock(true);
+				}
+			}
+		}
+
+		#endregion
 	}
 }

@@ -111,6 +111,7 @@
 			this.txtTestCaseSummary.Size = new System.Drawing.Size(511, 69);
 			this.txtTestCaseSummary.TabIndex = 2;
 			this.txtTestCaseSummary.TextChanged += new System.EventHandler(this.txtTestCaseSummary_TextChanged);
+			this.txtTestCaseSummary.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTestCaseSummary_KeyDown);
 			// 
 			// txtTestCasePreconditions
 			// 
@@ -123,6 +124,7 @@
 			this.txtTestCasePreconditions.Size = new System.Drawing.Size(511, 69);
 			this.txtTestCasePreconditions.TabIndex = 4;
 			this.txtTestCasePreconditions.TextChanged += new System.EventHandler(this.txtTestCasePreconditions_TextChanged);
+			this.txtTestCasePreconditions.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTestCaseSummary_KeyDown);
 			// 
 			// lblTextCaseSummary
 			// 

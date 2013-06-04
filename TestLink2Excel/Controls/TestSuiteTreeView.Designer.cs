@@ -54,12 +54,15 @@
 			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.folderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.caseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.imageListDrag = new System.Windows.Forms.ImageList(this.components);
+			this.timer = new System.Windows.Forms.Timer(this.components);
 			this.toolStrip.SuspendLayout();
 			this.treeContextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// suiteTreeView
 			// 
+			this.suiteTreeView.AllowDrop = true;
 			this.suiteTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.suiteTreeView.ForeColor = System.Drawing.SystemColors.WindowText;
 			this.suiteTreeView.FullRowSelect = true;
@@ -72,8 +75,14 @@
 			this.suiteTreeView.SelectedImageIndex = 0;
 			this.suiteTreeView.Size = new System.Drawing.Size(239, 413);
 			this.suiteTreeView.TabIndex = 3;
+			this.suiteTreeView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.suiteTreeView_ItemDrag);
 			this.suiteTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.SuiteTreeView_AfterSelect);
 			this.suiteTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.SuiteTreeView_NodeMouseClick);
+			this.suiteTreeView.DragDrop += new System.Windows.Forms.DragEventHandler(this.suiteTreeView_DragDrop);
+			this.suiteTreeView.DragEnter += new System.Windows.Forms.DragEventHandler(this.suiteTreeView_DragEnter);
+			this.suiteTreeView.DragOver += new System.Windows.Forms.DragEventHandler(this.suiteTreeView_DragOver);
+			this.suiteTreeView.DragLeave += new System.EventHandler(this.suiteTreeView_DragLeave);
+			this.suiteTreeView.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.suiteTreeView_GiveFeedback);
 			// 
 			// treeViewImages
 			// 
@@ -207,13 +216,13 @@
             this.pasteToolStripMenuItem,
             this.deleteToolStripMenuItem});
 			this.treeContextMenuStrip.Name = "treeContextMenuStrip";
-			this.treeContextMenuStrip.Size = new System.Drawing.Size(153, 192);
+			this.treeContextMenuStrip.Size = new System.Drawing.Size(139, 170);
 			// 
 			// hereIWantButtonsFromToolBarToolStripMenuItem
 			// 
 			this.hereIWantButtonsFromToolBarToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.add_folder_ico;
 			this.hereIWantButtonsFromToolBarToolStripMenuItem.Name = "hereIWantButtonsFromToolBarToolStripMenuItem";
-			this.hereIWantButtonsFromToolBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.hereIWantButtonsFromToolBarToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
 			this.hereIWantButtonsFromToolBarToolStripMenuItem.Text = "New Folder";
 			this.hereIWantButtonsFromToolBarToolStripMenuItem.Click += new System.EventHandler(this.newNodeToolStripButton_Click);
 			// 
@@ -221,7 +230,7 @@
 			// 
 			this.newCaseToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.add_note;
 			this.newCaseToolStripMenuItem.Name = "newCaseToolStripMenuItem";
-			this.newCaseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.newCaseToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
 			this.newCaseToolStripMenuItem.Text = "New Case";
 			this.newCaseToolStripMenuItem.Click += new System.EventHandler(this.newTestCaseToolStripButton_Click);
 			// 
@@ -234,7 +243,7 @@
 			// 
 			this.moveUpToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.move_up_ico;
 			this.moveUpToolStripMenuItem.Name = "moveUpToolStripMenuItem";
-			this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.moveUpToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
 			this.moveUpToolStripMenuItem.Text = "Move Up";
 			this.moveUpToolStripMenuItem.Click += new System.EventHandler(this.moveUpToolStripButton_Click);
 			// 
@@ -242,7 +251,7 @@
 			// 
 			this.moveDownToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.move_down_ico;
 			this.moveDownToolStripMenuItem.Name = "moveDownToolStripMenuItem";
-			this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.moveDownToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
 			this.moveDownToolStripMenuItem.Text = "Move Down";
 			this.moveDownToolStripMenuItem.Click += new System.EventHandler(this.moveDownToolStripButton_Click);
 			// 
@@ -255,7 +264,7 @@
 			// 
 			this.copyToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.copy_ico;
 			this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-			this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.copyToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
 			this.copyToolStripMenuItem.Text = "Copy";
 			this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripButton_Click);
 			// 
@@ -263,7 +272,7 @@
 			// 
 			this.pasteToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.paste_ico;
 			this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-			this.pasteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.pasteToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
 			this.pasteToolStripMenuItem.Text = "Paste";
 			this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripButton_Click);
 			// 
@@ -271,7 +280,7 @@
 			// 
 			this.deleteToolStripMenuItem.Image = global::TestLink2Excel.Properties.Resources.delete_co;
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
 			this.deleteToolStripMenuItem.Text = "Delete";
 			this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripButton_Click);
 			// 
@@ -286,6 +295,16 @@
 			this.caseToolStripMenuItem.Name = "caseToolStripMenuItem";
 			this.caseToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.caseToolStripMenuItem.Text = "Case";
+			// 
+			// imageListDrag
+			// 
+			this.imageListDrag.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+			this.imageListDrag.ImageSize = new System.Drawing.Size(16, 16);
+			this.imageListDrag.TransparentColor = System.Drawing.Color.Transparent;
+			// 
+			// timer
+			// 
+			this.timer.Tick += new System.EventHandler(this.timer_Tick);
 			// 
 			// TestSuiteTreeView
 			// 
@@ -329,6 +348,8 @@
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+		private System.Windows.Forms.ImageList imageListDrag;
+		private System.Windows.Forms.Timer timer;
 
     }
 }

@@ -11,7 +11,8 @@
     <RootNamespace>TestLink2Excel</RootNamespace>
     <AssemblyName>TestLink2Excel</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -99,6 +100,7 @@
     <Compile Include="Dialogs\SuiteExportChoseForm.Designer.cs">
       <DependentUpon>SuiteExportChoseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DragHelper.cs" />
     <Compile Include="Utils\ExcelWriter.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -155,6 +157,7 @@
     <EmbeddedResource Include="Controls\TestCaseDetailsForm.resx">
       <DependentUpon>TestCaseDetailsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

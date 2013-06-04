@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 using TestLink2Excel.Model;
 
@@ -24,6 +25,14 @@ namespace TestLink2Excel.Utils
 			this.suite.AppendChild(n);
 			this.root = this.suite.CreateElement("", "testsuite", "");
 			this.suite.AppendChild(root);
+		}
+
+		public XMLSuite(TestSuite testSuite)
+		{
+			this.suite = new XmlDocument();
+
+			XmlNode n = this.WriteSuite(testSuite);
+			this.suite.AppendChild(n);
 		}
 
 		public void AddSuite(TestSuite suite)
@@ -55,8 +64,9 @@ namespace TestLink2Excel.Utils
 		{
 			XmlElement node = this.suite.CreateElement("", "testcase", "");
 			node.SetAttribute("name", tc.Name);
+			node.SetAttribute("internalid", tc.InternalId.ToString());
 			XmlElement externalid = this.suite.CreateElement("", "externalid", "");
-			externalid.AppendChild(this.suite.CreateCDataSection(tc.Id.ToString()));
+			externalid.AppendChild(this.suite.CreateCDataSection(tc.ExternalId.ToString()));
 			node.AppendChild(externalid);
 			XmlElement summary = this.suite.CreateElement("", "summary", "");
 			summary.AppendChild(this.suite.CreateCDataSection(tc.Summary));
@@ -107,7 +117,7 @@ namespace TestLink2Excel.Utils
 
 		private TestSuite AddSuite(XmlNode node)
 		{
-			string name = node.Attributes.Count > 0 && node.Attributes[0].InnerText != null && node.Attributes[0].InnerText != string.Empty ? node.Attributes[0].InnerText : "<<Test Suite>>";
+			string name = node.Attributes.Count > 0 && node.Attributes["name"].InnerText != null && node.Attributes["name"].InnerText != string.Empty ? node.Attributes["name"].InnerText : "";
 			TestSuite suite = new TestSuite(name, string.Empty);
 
 			foreach (XmlNode n in node.ChildNodes)
@@ -125,7 +135,26 @@ namespace TestLink2Excel.Utils
 
 		private TestCase AddCase(XmlNode node)
 		{
-			TestCase testCase = new TestCase(node.Attributes[1].InnerText);
+			TestCase testCase;
+
+			//Baaaaaaaaaaaaaaaardzooooooooooooo brzydka konstrukcja, ale robiłem na szyyyyyybko, kiedyś się poprawi
+			try
+			{
+				testCase = new TestCase(node.Attributes["name"].InnerText);
+			}
+			catch (Exception)
+			{
+				testCase = new TestCase("testcase");
+			}
+
+			try
+			{
+				testCase.InternalId = int.Parse(node.Attributes["internalid"].InnerText);
+			}
+			catch (Exception)
+			{
+				testCase.InternalId = -1;
+			}
 
 			foreach (XmlNode n in node.ChildNodes)
 			{
@@ -134,7 +163,7 @@ namespace TestLink2Excel.Utils
 				else if (n.Name == "summary")
 					testCase.Summary = n.InnerText;
 				else if (n.Name == "externalid")
-					testCase.Id = int.Parse(n.InnerText);
+					testCase.ExternalId = int.Parse(n.InnerText);
 				else if (n.Name == "steps")
 					testCase.Steps = AddSteps(n);
 			}

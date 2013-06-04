@@ -13,7 +13,8 @@ namespace TestLink2Excel.Model
 
 		#region Propertes
 
-		public int Id { get; set; }
+		public int ExternalId { get; set; }
+		public int InternalId { get; set; }
 
 		public string Name
 		{

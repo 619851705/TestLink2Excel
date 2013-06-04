@@ -39,5 +39,11 @@ namespace TestLink2Excel.Controls
 		{
 			this.DisplaySuite(this.Tag as TestSuite);
 		}
+
+		private void txtTestSuiteSummary_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Control && e.KeyCode == Keys.A)
+				(sender as TextBox).SelectAll();
+		}
 	}
 }

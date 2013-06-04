@@ -213,5 +213,11 @@ namespace TestLink2Excel
 				testCase.Preconditions = txtTestCasePreconditions.Text;
 			}
 		}
+
+		private void txtTestCaseSummary_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Control && e.KeyCode == Keys.A)
+				(sender as TextBox).SelectAll();
+		}
 	}
 }

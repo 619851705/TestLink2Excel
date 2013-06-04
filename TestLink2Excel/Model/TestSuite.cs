@@ -31,6 +31,14 @@ namespace TestLink2Excel.Model
 			}
 		}
 
+		public string VisibleName
+		{
+			get
+			{
+				return string.IsNullOrEmpty(this.name) ? "<NoName>" : this.name;
+			}
+		}
+
 		public string Description { get; set; }
 
 		#endregion
