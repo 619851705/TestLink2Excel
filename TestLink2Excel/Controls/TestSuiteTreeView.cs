@@ -53,9 +53,9 @@ namespace TestLink2Excel.Controls
 		public void GenerateExcelFile(string fileName)
 		{
 			SuiteExportChoseForm exportDialog = new SuiteExportChoseForm(this.suiteTreeView.Nodes);
-			exportDialog.ShowDialog();
+			DialogResult result = exportDialog.ShowDialog();
 
-			if (exportDialog.Result == DialogResult.OK)
+            if (result == DialogResult.OK)
 			{
 				List<TestSuite> suites = this.MakeSuiteList(exportDialog.Nodes);
 				ExcelWriter file = new ExcelWriter(fileName);
