@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ClosedXML.Excel;
 using TestLink2Excel.Model;
+using System.Text.RegularExpressions;
 
 namespace TestLink2Excel.Utils
 {
@@ -63,22 +64,22 @@ namespace TestLink2Excel.Utils
 				sheet.Cell(row, cats.Count + 1).Value = suite.Name;
 				sheet.Cell(row, deep + 1).Value = testCase.Name;
 				sheet.Cell(row, deep + 2).Value = testCase.ExternalId;
-				sheet.Cell(row, deep + 3).Value = testCase.Summary;
-				sheet.Cell(row, deep + 4).Value = testCase.Preconditions;
+				sheet.Cell(row, deep + 3).Value = Regex.Replace(testCase.Summary, "<.*?>", string.Empty);
+				sheet.Cell(row, deep + 4).Value = Regex.Replace(testCase.Preconditions, "<.*?>", string.Empty);
 				string actions = string.Empty;
 				string expected = string.Empty;
 
 				if (testCase.Steps.Count == 1)
 				{
-					actions += testCase.Steps[0].Action;
-					expected += testCase.Steps[0].ExpectedResult;
+					actions += Regex.Replace(testCase.Steps[0].Action , "<.*?>", string.Empty);
+					expected += Regex.Replace(testCase.Steps[0].ExpectedResult, "<.*?>", string.Empty);
 				}
 				else
 				{
 					foreach (Step step in testCase.Steps)
 					{
-						actions += step.StepNumber.ToString() + ". " + step.Action + "\n";
-						expected += step.StepNumber.ToString() + ". " + step.ExpectedResult + "\n";
+						actions += step.StepNumber.ToString() + ". " + Regex.Replace(step.Action, "<.*?>", string.Empty)  + "\n";
+						expected += step.StepNumber.ToString() + ". " + Regex.Replace(step.ExpectedResult, "<.*?>", string.Empty) + "\n";
 					}
 				}
 
